@@ -1,0 +1,22 @@
+// https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+
+public class Solution {
+    public int RemoveDuplicates(int[] nums) {
+        int removed = 0;
+        int n = nums.Length;
+        for (int i = 1; i < n - removed; i++)
+        {
+            if (nums[i] == nums[i - 1])
+            {
+                for (int j = i; j < n - removed - 1; j++)
+                {
+                    nums[j] = nums[j + 1];
+                }
+                i--;
+                removed++;
+            }
+        }
+        
+        return n - removed;
+    }
+}
