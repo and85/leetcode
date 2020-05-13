@@ -15,7 +15,7 @@ namespace ConsoleApp1
                 return new List<string>();
             
             var uniqueSubstrings = new HashSet<string>();
-            var results = new HashSet<string();
+            var results = new HashSet<string>();
             string substring = s.Substring(0, n);
             uniqueSubstrings.Add(substring);
 
