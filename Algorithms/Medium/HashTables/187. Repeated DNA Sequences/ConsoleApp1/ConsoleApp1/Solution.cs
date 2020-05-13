@@ -9,12 +9,13 @@ namespace ConsoleApp1
         public IList<string> FindRepeatedDnaSequences(string s)
         {
             int n = 10;
-            var results = new List<string>();
+            //var results = new List<string>();
 
             if (s.Length <= n)
-                return results;
+                return new List<string>();
             
             var uniqueSubstrings = new HashSet<string>();
+            var results = new HashSet<string();
             string substring = s.Substring(0, n);
             uniqueSubstrings.Add(substring);
 
@@ -26,19 +27,17 @@ namespace ConsoleApp1
                 // next character from s, like in  Karp-Rabin algorithm
                 substring = substring.Substring(1, n - 1) + s[substringEndPosition];
 
-                if (!uniqueSubstrings.Contains(substring))
+                if (!uniqueSubstrings.TryGetValue(substring, out string _))
                 {
                     uniqueSubstrings.Add(substring);
                 }
                 else
                 {
-                    if (!results.Contains(substring))
-                        results.Add(substring);
+                    results.Add(substring);
                 }
             }
 
-            //uniqueSubstrings.To
-            return results;
+            return new List<string>(results);
         }
     }
 }
