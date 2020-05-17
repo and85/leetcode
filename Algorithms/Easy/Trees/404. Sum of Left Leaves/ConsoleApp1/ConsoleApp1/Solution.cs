@@ -9,25 +9,28 @@ namespace ConsoleApp1
     // https://leetcode.com/problems/sum-of-left-leaves/
     public class Solution
     {
-        private int _sum = 0; 
+        //private int _sum = 0; 
 
         public int SumOfLeftLeaves(TreeNode root)
         {
-            TraverseTree(root, false);
+            return TraverseTree(root, false);
 
-            return _sum;
+            //return _sum;
         }
 
-        private void TraverseTree(TreeNode root, bool isLeft)
+        private int TraverseTree(TreeNode root, bool isLeft)
         {
+            int sum = 0;
             if (root == null)
-                return;
+                return sum;
 
             if (root.left == null && root.right == null && isLeft)
-                _sum += root.val;
+                sum += root.val;
 
-            TraverseTree(root.left, true);
-            TraverseTree(root.right, false);
+            sum += TraverseTree(root.left, true);
+            sum += TraverseTree(root.right, false);
+
+            return sum;
         }
     }
 }
