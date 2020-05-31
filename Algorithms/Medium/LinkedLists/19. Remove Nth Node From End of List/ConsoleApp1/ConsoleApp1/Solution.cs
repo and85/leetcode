@@ -31,7 +31,7 @@ namespace ConsoleApp1
             {
                 int nodeIndex = 0;
                 ListNode curr = head;
-                while (curr.next != null)
+                while (curr?.next != null)
                 {
                     if (++nodeIndex != jumpIndex)
                         curr = curr.next;
