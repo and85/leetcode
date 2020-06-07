@@ -17,6 +17,7 @@ namespace ConsoleApp1
 
         }
 
+		//
         public double Next(int val)
         {
             _sum += val;
