@@ -14,30 +14,44 @@ namespace ConsoleApp1
             int curr = 1;
             bool currSet = false;
             int counter = 1;
+            char charPrev = chars[0];
             for (int i = 1; i < chars.Length; i++)
             {
-                if (chars[i - 1] == chars[i])
+                if (charPrev == chars[i])
                 {
                     if (!currSet)
                     {
                         curr = i;
-                        //counter = 1;
                     }
                     currSet = true;
                     counter++;
                 }
                 else
                 {
+                    charPrev = SetCounter(chars, curr, counter); ;
                     currSet = false;
-                    chars[curr] = Convert.ToChar(counter.ToString());
                     counter = 1;
                 }
             }
 
             if (counter > 1)
-                chars[curr] = Convert.ToChar(counter.ToString());
+            {
+                SetCounter(chars, curr + 1, counter);
+            }
 
-            return curr + 1;
+            return curr + 1 + counter.ToString().Length;
+        }
+
+        private static char SetCounter(char[] chars, int curr, int counter)
+        {
+            char prev = chars[curr];
+            string counterStr = counter.ToString();
+            for (int i = 0; i < counterStr.Length; i++)
+            {
+                chars[curr + i] = counterStr[i];
+            }
+
+            return prev;
         }
     }
 }
