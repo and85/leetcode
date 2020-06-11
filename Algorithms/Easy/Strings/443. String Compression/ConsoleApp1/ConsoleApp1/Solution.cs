@@ -6,52 +6,27 @@ namespace ConsoleApp1
 {
     public class Solution
     {
+        private const char RemovedChar = '0';
+
         public int Compress(char[] chars)
         {
-            if (chars.Length <= 1)
-                return chars.Length;
-
-            int curr = 1;
-            bool currSet = false;
-            int counter = 1;
-            char charPrev = chars[0];
-            for (int i = 1; i < chars.Length; i++)
+            int anchor = 0, write = 0;
+            for (int read = 0; read < chars.Length; read++)
             {
-                if (charPrev == chars[i])
+                if (read + 1 == chars.Length || chars[read + 1] != chars[read])
                 {
-                    if (!currSet)
+                    chars[write++] = chars[anchor];
+                    if (read > anchor)
                     {
-                        curr = i;
+                        foreach (char c in ("" + (read - anchor + 1)).ToCharArray())
+                        {
+                            chars[write++] = c;
+                        }
                     }
-                    currSet = true;
-                    counter++;
-                }
-                else
-                {
-                    charPrev = SetCounter(chars, curr, counter); ;
-                    currSet = false;
-                    counter = 1;
+                    anchor = read + 1;
                 }
             }
-
-            if (counter > 1)
-            {
-                SetCounter(chars, curr + 1, counter);
-            }
-
-            return curr + 1 + counter.ToString().Length;
-        }
-
-        private static char SetCounter(char[] chars, int curr, int counter)
-        {
-            char prev = chars[curr];
-            string counterStr = counter.ToString();
-            for (int i = 0; i < counterStr.Length; i++)
-            {
-                chars[curr + i] = counterStr[i];
-            }
-
-            return prev;
+            return write;
         }
     }
 }
