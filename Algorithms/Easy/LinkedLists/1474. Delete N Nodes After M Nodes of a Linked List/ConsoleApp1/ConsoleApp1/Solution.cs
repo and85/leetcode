@@ -15,9 +15,7 @@ namespace ConsoleApp1
             int keepCounter = 0, removeCounter = 0;
             while (curr != null)
             {
-                keepCounter++;
-
-                if (keepCounter == m)
+                if (++keepCounter == m)
                 {
                     while (removeCounter++ != n)
                     {
