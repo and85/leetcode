@@ -11,7 +11,7 @@ namespace ConsoleApp1
         public int CountPrimes(int n)
         {
             int result = 0;
-            for (int i = 0; i <= n; i++)
+            for (int i = 2; i < n; i++)
             {
                 if (IsPrimeNaive(i))
                     result++;
@@ -22,9 +22,10 @@ namespace ConsoleApp1
 
         private bool IsPrimeNaive(int n)
         {
-            if (n <= 1) return false;
-
-            for (int i = 2; i < n; i++)
+            if (n == 2) return true;
+            if (n % 2 == 0) return false;
+            
+            for (int i = 3; i <= Math.Sqrt(n); i += 2)
                 if (n % i == 0)
                     return false;
 
