@@ -13,20 +13,12 @@ namespace ConsoleApp1
                 return 0;
 
             _sum += (root.val >= L && root.val <= R) ? root.val : 0;
-            //int sum = root.val;
 
-            //int leftValue = root.left?.val ?? 0;
-            //int rightValue = root.right?.val ?? 0;
-
-            //if (leftValue >= L && leftValue <= R)
-            {
+            if (root.val >= L)
                 RangeSumBST(root.left, L, R);
-            }
 
-            //if (rightValue >= L && rightValue <= R)
-            {
+            if (root.val <= R)
                 RangeSumBST(root.right, L, R);
-            }
 
             return _sum;
         }
