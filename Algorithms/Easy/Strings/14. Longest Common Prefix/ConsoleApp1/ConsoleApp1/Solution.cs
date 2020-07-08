@@ -17,7 +17,6 @@ namespace ConsoleApp1
 
             StringBuilder prefix = new StringBuilder();
             int shortestLenght = strs.Min(s => s.Length);
-            bool breakFlag = false;
 
             for (int i = 0; i < shortestLenght; i++)
             {
@@ -25,15 +24,14 @@ namespace ConsoleApp1
                 {
                     if (strs[j - 1][i] != strs[j][i])
                     {
-                        breakFlag = true;
-                        break;
+                        goto exit;
                     }
                 }
 
-                if (breakFlag) break;
                 prefix.Append(strs[0][i]);
             }
 
+            exit:
             return prefix.ToString();
         }
     }
