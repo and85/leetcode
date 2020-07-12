@@ -23,22 +23,6 @@ namespace ConsoleApp1
             return LongestSubstring; 
         }
 
-        //private void CountSubstrings(string s)
-        //{
-        //    if (s.Length == 1)
-        //    {
-        //        UpdateCounter(s);
-
-        //        System.Threading.Tasks.Task.WaitAll();
-
-        //        return;
-        //    }
-
-        //    System.Threading.Tasks.Task.Factory.StartNew(() => GenerateSubstrings(s));
-
-        //    CountSubstrings(s.Substring(1, s.Length - 1));
-        //}
-
         private void CountSubstrings(string s)
         {
             var tasks = new List<System.Threading.Tasks.Task>();
@@ -48,8 +32,6 @@ namespace ConsoleApp1
                 string sub = s.Substring(i, s.Length - i);
                 tasks.Add(System.Threading.Tasks.Task.Factory.StartNew(() => GenerateSubstrings(sub)));
             }
-
-            //System.Threading.Tasks.Parallel.ForEach(tasks, task => task.Start());
 
             System.Threading.Tasks.Task.WaitAll(tasks.ToArray());
         }
@@ -68,11 +50,7 @@ namespace ConsoleApp1
 
         private void UpdateCounter(string key)
         {
-            if (!_substringCount.ContainsKey(key))
-            {
-                _substringCount.TryAdd(key, 1);
-            }
-            else
+            if (!_substringCount.TryAdd(key, 1))
             {
                 if (key.Length > LongestSubstring.Length)
                     LongestSubstring = key;
