@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ConsoleApp1
@@ -8,14 +9,24 @@ namespace ConsoleApp1
     {
         public char FindTheDifference(string s, string t)
         {
-            var hashSet = new HashSet<char>(s);
-            foreach (char c in t)
+            var te = GetEntries(t);
+            var se = GetEntries(s);
+
+            return te.Where(e => !se.ContainsKey(e.Key) || te[e.Key] > se[e.Key]).Single().Key;
+        }
+
+        private Dictionary<char, int> GetEntries(string str)
+        {
+            var entries = new Dictionary<char, int>();
+            foreach (char c in str)
             {
-                if (!hashSet.Contains(c))
-                    return c;
+                if (entries.ContainsKey(c))
+                    entries[c]++;
+                else
+                    entries.Add(c, 1);
             }
 
-            return '\0';
+            return entries;
         }
     }
 }
