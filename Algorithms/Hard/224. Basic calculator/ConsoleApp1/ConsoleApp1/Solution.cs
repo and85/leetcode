@@ -10,12 +10,12 @@ namespace ConsoleApp1
         public int Calculate(string s)
         {
             s = s.Replace(" ", string.Empty);
-            EvaluateExpression();
+            EvaluateExpression(s);
 
             return 0;
         }
 
-        private static void EvaluateExpression()
+        private static void EvaluateExpression(string s)
         {
             var operators = new Stack<string>();
             var values = new Stack<int>();
