@@ -8,30 +8,44 @@ namespace ConsoleApp1
     {
         public int MySqrt(int x)
         {
-            if (x <= 1)
-                return x;
-
-            decimal dx = x;
-
-            decimal median = (int)(x / 2);
-
-            while (median >= 1)
+            float precision = 0.1f;
+            float min = 0;
+            float max = x;
+            float median = 0;
+            while (max - min > precision)
             {
-                if (median * median == dx)
-                    return (int)median;
+                median = (min + max) / 2;
 
-                if (median * median < dx)
-                    for (decimal i = median; i <= dx; i++)
-                    {
+                if (median * median == x)
+                    return GetResult(x, median);
 
-                        if (i * i > dx)
-                            return (int)(i % 1 == 0 ? i - 1 : i);
-                    }
-
-                median = median / 2;
+                if ((median * median) >= x)
+                {
+                    max = median;
+                }
+                else
+                {
+                    min = median;
+                }
             }
 
-            return 0;
+            return GetResult(x, median);
+        }
+
+        private static int GetResult(int x, float median)
+        {
+            int result = (int)Math.Round(median);
+            try
+            {
+                if (checked(result * result) > x)
+                    result -= 1;
+            }
+            catch (OverflowException)
+            {
+                result -= 1;
+            }    
+            
+            return result;
         }
     }
 }
