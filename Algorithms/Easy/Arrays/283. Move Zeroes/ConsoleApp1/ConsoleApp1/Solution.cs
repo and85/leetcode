@@ -8,41 +8,25 @@ namespace ConsoleApp1
     {
         public void MoveZeroes(int[] nums)
         {
-            int zeroCounter = 0, zeroStart = -1;
+            int zeroCounter = 0;
+            int curElement;
 
             for (int i = 0; i < nums.Length; i++)
             {
-                if (nums[i] == 0)
+                if (nums[i] != 0)
+                {
+                    curElement = nums[i];
+                    nums[i - zeroCounter] = curElement;
+                }
+                else
                 {
                     zeroCounter++;
-                    if (zeroStart == -1) zeroStart = i;
-                }
-
-                if ( i + 1 != nums.Length && nums[i + 1] != 0)
-                {
-                    ShiftZeros(nums, zeroStart, zeroCounter);
-                    zeroStart = -1;
-                    zeroCounter = 0;
                 }
             }
-        }
 
-        private void ShiftZeros(int[] nums, int zeroStart, int zeroCounter)
-        {
-            if (zeroCounter == 0 || zeroStart == -1)
-                return;
-
-            for (int i = zeroStart; i < zeroStart + zeroCounter; i++)
-            {
-                if (i + zeroCounter >= nums.Length)
-                    break;
-
-                if (nums[i + zeroCounter] == 0)
-                    break;
-
-                nums[i] = nums[i + zeroCounter];
-                nums[i + zeroCounter] = 0;
-            }
+            // replace end elements by zeros
+            for (int i = nums.Length - 1 - zeroCounter; i < nums.Length; i++)
+                nums[i] = 0;
         }
     }
 }
