@@ -25,7 +25,7 @@ namespace ConsoleApp1
             }
 
             // replace end elements by zeros
-            for (int i = nums.Length - 1 - zeroCounter; i < nums.Length; i++)
+            for (int i = nums.Length - zeroCounter; i < nums.Length; i++)
                 nums[i] = 0;
         }
     }
