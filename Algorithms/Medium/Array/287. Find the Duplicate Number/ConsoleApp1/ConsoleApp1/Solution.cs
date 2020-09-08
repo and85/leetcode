@@ -8,22 +8,17 @@ namespace ConsoleApp1
     {
         public int FindDuplicate(int[] nums)
         {
-            int slow = 0, fast = 0;
+            var hashSet = new HashSet<int>();
 
-            while (true)
+            foreach (int num in nums)
             {
-                slow++;
-
-                if (fast >= nums.Length)
-                    fast = fast - nums.Length;
-                if (slow == nums.Length)
-                    slow = 0;
-
-                if (nums[fast] == nums[slow] && fast != slow)
-                    return nums[slow];
-                
-                fast = fast + 2;
+                if (hashSet.Contains(num))
+                    return num;
+                else
+                    hashSet.Add(num);
             }
+
+            return -1;
         }
     }
 }
