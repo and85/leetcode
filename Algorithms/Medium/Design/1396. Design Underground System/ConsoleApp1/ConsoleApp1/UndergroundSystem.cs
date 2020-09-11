@@ -7,62 +7,80 @@ namespace ConsoleApp1
     
     public class UndergroundSystem
     {
-        private Dictionary<string, Dictionary<int, int>> _checkIns;
-        private Dictionary<string, Dictionary<int, int>> _checkOuts;
+        public class AverageTravelTime
+        {
+            public AverageTravelTime(int totalTravelTime, int journeyCounter)
+            {
+                TotalTravelTime = totalTravelTime;
+                JourneyCounter = journeyCounter;
+            }
+
+            public int TotalTravelTime { get; set; }
+
+            public int JourneyCounter { get; set; }
+        }
+
+        public class StationCheckIn
+        {
+            public StationCheckIn(string startStation, int time)
+            {
+                StartStation = startStation;
+                Time = time;
+            }
+
+            public string StartStation { get; set; }
+            public int Time { get; set; }
+        }
+
+        private Dictionary<string, AverageTravelTime> _journeys = new Dictionary<string, AverageTravelTime>();
+
+        private Dictionary<int, StationCheckIn> _checkIns = new Dictionary<int, StationCheckIn>();
 
         public UndergroundSystem()
         {
-            _checkIns = new Dictionary<string, Dictionary<int, int>>();
-            _checkOuts = new Dictionary<string, Dictionary<int, int>>();
         }
 
         public void CheckIn(int id, string stationName, int t)
         {
-            RecordTravelTime(id, stationName, t, _checkIns);
+            _checkIns.Add(id, new StationCheckIn(stationName, t));
         }
 
         // TODO: Update average travel time during checkouts,
         // handle cases when the same pasanger can travel to the same station more than once
         public void CheckOut(int id, string stationName, int t)
         {
-            RecordTravelTime(id, stationName, t, _checkOuts);
+            StationCheckIn checkIn = _checkIns[id];
+            string key = GetJourneyKey(checkIn.StartStation, stationName);
+            int travelTime = t - checkIn.Time;
+
+            if (_journeys.ContainsKey(key))
+            {
+                var averageTravelTime = _journeys[key];
+                averageTravelTime.TotalTravelTime += travelTime;
+                averageTravelTime.JourneyCounter++;
+
+                _journeys[key] = averageTravelTime;
+            }
+            else
+            {
+                var averageTravelTime = new AverageTravelTime(travelTime, 1);
+                _journeys.Add(key, averageTravelTime);
+            }
+
+            _checkIns.Remove(id);
         }
 
         public double GetAverageTime(string startStation, string endStation)
         {
-            var checkIns = _checkIns[startStation];
-            var checkOuts = _checkOuts[endStation];
+            string key = GetJourneyKey(startStation, endStation);
+            var journey = _journeys[key];
 
-            double totalTime = 0;
-            int journeyCounter = 0;
-
-            foreach (var checkOut in checkOuts)
-            {
-                int pasangerId = checkOut.Key;
-                if (checkIns.ContainsKey(pasangerId))
-                {
-                    totalTime += checkOut.Value - checkIns[pasangerId];
-                    journeyCounter++; 
-                }
-            }
-
-            return totalTime / journeyCounter;
+            return (double)journey.TotalTravelTime / journey.JourneyCounter;
         }
 
-        private void RecordTravelTime(int id, string stationName, int t, Dictionary<string, Dictionary<int, int>> travelDictionary)
+        private string GetJourneyKey(string startStation, string endStation)
         {
-            if (!travelDictionary.ContainsKey(stationName))
-            {
-                var checkIn = new Dictionary<int, int>()
-                {
-                    { id, t }
-                };
-                travelDictionary.Add(stationName, checkIn);
-            }
-            else
-            {
-                travelDictionary[stationName].Add(id, t);
-            }
+            return $"{startStation}:{endStation}";
         }
     }
 
