@@ -8,13 +8,15 @@ namespace ConsoleApp1
     {
         public int MinCost(int[][] costs)
         {
-            for (int i = 0; i < costs.Length; i++)
+            for (int house = 0; house < costs.Length; house++)
             {
-                for (int j = 0; j < costs[i].Length; j++)
-                {
-
-                }
+                // red, blue or green
+                int redCost = costs[house][0];
+                int blueCost = costs[house][1];
+                int greenCost = costs[house][2];
             }
+
+            return 0;
         }
 
         private int GetMinPrice()
