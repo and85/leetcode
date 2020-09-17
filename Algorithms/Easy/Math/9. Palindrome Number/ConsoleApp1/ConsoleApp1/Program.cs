@@ -6,7 +6,11 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var solution = new Solution();
+            Console.WriteLine(solution.IsPalindrome(123454321));
+            Console.WriteLine(solution.IsPalindrome(123));
+
+            Console.ReadLine();
         }
     }
 }
