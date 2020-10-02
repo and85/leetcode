@@ -7,6 +7,8 @@ namespace ConsoleApp1
 {
     public class Solution
     {
+        private bool _candidateFound = false;
+
         public string MinWindow(string s, string t)
         {
             Dictionary<char, int> tEntries = t.ToCharArray()
@@ -20,7 +22,7 @@ namespace ConsoleApp1
             bool removedIrelevant = false;
             bool addedRemoved = false;
             char removedSymbol = '0';
-            bool candidateFound = false;
+            
 
             while (firstPointer < s.Length && 
                 IsPointerMove(firstPointer, secondPointer, prevFirstPointer, prevSecondPointer))
@@ -37,10 +39,9 @@ namespace ConsoleApp1
                 // removed when moving the window, otherwise it will be too many comparations!!! 
 
                 if (removedIrelevant || addedRemoved || 
-                    (!candidateFound && ContainsAllCharacters(candidateEntries, tEntries))
+                    (!_candidateFound && ContainsAllCharacters(candidateEntries, tEntries))
                     )
                 {
-                    candidateFound = true;
                     if (candidate.Length < shortestCandidate.Length)
                         shortestCandidate = candidate;
 
@@ -52,7 +53,6 @@ namespace ConsoleApp1
                         if (candidateEntries[removedCh] == 0)
                             candidateEntries.Remove(removedCh);
 
-                        candidateFound = false;
                         removedIrelevant = false;
                         removedSymbol = removedCh;
                     }
@@ -110,7 +110,8 @@ namespace ConsoleApp1
             if (candidate.Keys.Count != tEntries.Keys.Count)
                 return false;
 
-            return !tEntries.Any(e => candidate[e.Key] < e.Value);
+            bool _candidateFound = !tEntries.Any(e => candidate[e.Key] < e.Value);
+            return _candidateFound;
         }
     }
 }
