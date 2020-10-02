@@ -20,6 +20,7 @@ namespace ConsoleApp1
             bool removedIrelevant = false;
             bool addedRemoved = false;
             char removedSymbol = '0';
+            bool candidateFound = false;
 
             while (firstPointer < s.Length && 
                 IsPointerMove(firstPointer, secondPointer, prevFirstPointer, prevSecondPointer))
@@ -35,8 +36,11 @@ namespace ConsoleApp1
                 // in the new candidate we should check not all entries, but only those that were
                 // removed when moving the window, otherwise it will be too many comparations!!! 
 
-                if (removedIrelevant || addedRemoved || ContainsAllCharacters(candidateEntries, tEntries))
+                if (removedIrelevant || addedRemoved || 
+                    (!candidateFound && ContainsAllCharacters(candidateEntries, tEntries))
+                    )
                 {
+                    candidateFound = true;
                     if (candidate.Length < shortestCandidate.Length)
                         shortestCandidate = candidate;
 
@@ -45,6 +49,10 @@ namespace ConsoleApp1
                     if (tEntries.ContainsKey(removedCh))
                     {
                         candidateEntries[removedCh]--;
+                        if (candidateEntries[removedCh] == 0)
+                            candidateEntries.Remove(removedCh);
+
+                        candidateFound = false;
                         removedIrelevant = false;
                         removedSymbol = removedCh;
                     }
@@ -70,6 +78,7 @@ namespace ConsoleApp1
                         }
                     }
 
+                    removedIrelevant = false;
                     secondPointer++;
 
                     // we can't move out of s string
@@ -79,6 +88,7 @@ namespace ConsoleApp1
             }
 
             Dictionary<char, int> shortestCandidateEntries = shortestCandidate.ToCharArray()
+                .Where(c => tEntries.ContainsKey(c))
                 .GroupBy(c => c)
                 .ToDictionary(c => c.Key, c => c.Count());
 
@@ -97,13 +107,10 @@ namespace ConsoleApp1
         private bool ContainsAllCharacters(Dictionary<char, int> candidate, 
             Dictionary<char, int> tEntries)
         {
-            foreach (var entry in tEntries)
-            {
-                if (!candidate.ContainsKey(entry.Key) || candidate[entry.Key] < entry.Value)
-                    return false;
-            }
+            if (candidate.Keys.Count != tEntries.Keys.Count)
+                return false;
 
-            return true;
+            return !tEntries.Any(e => candidate[e.Key] < e.Value);
         }
     }
 }
