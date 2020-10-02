@@ -17,12 +17,14 @@ namespace ConsoleApp1
 
             int firstPointer = 0, secondPointer = 0;
             int prevFirstPointer = -1, prevSecondPointer = -1;
-            string candidate = string.Empty, shortestCandidate = s;
+            StringBuilder candidate = new StringBuilder();
+            string shortestCandidate = s;
             var candidateEntries = new Dictionary<char, int>();
             bool removedIrelevant = false;
             bool addedRemoved = false;
             char removedSymbol = '0';
-            
+
+            string candidateStr = string.Empty;
 
             while (firstPointer < s.Length && 
                 IsPointerMove(firstPointer, secondPointer, prevFirstPointer, prevSecondPointer))
@@ -30,7 +32,25 @@ namespace ConsoleApp1
                 prevFirstPointer = firstPointer;
                 prevSecondPointer = secondPointer;
 
-                candidate = s.Substring(firstPointer, secondPointer - firstPointer);
+                candidateStr = s.Substring(firstPointer, secondPointer - firstPointer);
+
+                // TODO: candidate could be built faster just by adding and removing symbols to existing
+                // candidate!!! 
+                //if (prevFirstPointer < firstPointer && candidate.Length > 0)
+                //{
+                //    candidate.Remove(0, 1);
+                //}
+                //if (prevSecondPointer < secondPointer)
+                //{
+                //    if (prevSecondPointer >= 0)
+                //        candidate.Append(s[prevSecondPointer]);
+                //}
+
+                //string sb = candidate.ToString();
+                //if (sb != candidateStr)
+                //{
+                //    sb = sb;
+                //}
 
                 // move first pointer till candidadate has all characters from t
                 // move second pointer till we candidate doesn't have all characters from t
@@ -43,7 +63,8 @@ namespace ConsoleApp1
                     )
                 {
                     if (candidate.Length < shortestCandidate.Length)
-                        shortestCandidate = candidate;
+                        //shortestCandidate = candidate.ToString();
+                        shortestCandidate = candidateStr;
 
                     // remove from dictionary here
                     char removedCh = s[firstPointer];
@@ -110,7 +131,7 @@ namespace ConsoleApp1
             if (candidate.Keys.Count != tEntries.Keys.Count)
                 return false;
 
-            bool _candidateFound = !tEntries.Any(e => candidate[e.Key] < e.Value);
+            _candidateFound = !tEntries.Any(e => candidate[e.Key] < e.Value);
             return _candidateFound;
         }
     }
