@@ -8,12 +8,26 @@ namespace ConsoleApp1
     {
         public int[][] Merge(int[][] intervals)
         {
-            if (intervals.Length <= 1)
+            if (intervals.Length == 0)
                 return intervals;
 
+            Array.Sort(intervals, new IntervalComparer());
+
             var intervalStack = new Stack<int[]>();
-           
-            // todo: we should check in a loop if intervals overlap?
+            intervalStack.Push(intervals[0]);
+
+            for (int i = 1; i < intervals.Length; i++)
+            {
+                if (IntervalsOverlap(intervalStack.Peek(), intervals[i], out int[] newInterval))
+                {
+                    intervalStack.Pop();
+                    intervalStack.Push(newInterval);
+                }
+                else
+                {
+                    intervalStack.Push(intervals[i]);
+                }
+            }
 
             var merged = intervalStack.ToArray();
             Array.Reverse(merged);
@@ -33,6 +47,14 @@ namespace ConsoleApp1
             }; 
 
             return isOverlap;
+        }
+
+        class IntervalComparer : IComparer<int[]>
+        {
+            public int Compare(int[] x, int[] y)
+            {
+                return x[0].CompareTo(y[0]);
+            }
         }
     }
 }
