@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ConsoleApp1
 {
+
     public class Solution
     {
         private bool _candidateFound = false;
@@ -17,54 +18,29 @@ namespace ConsoleApp1
 
             int firstPointer = 0, secondPointer = 0;
             int prevFirstPointer = -1, prevSecondPointer = -1;
-            StringBuilder candidate = new StringBuilder();
             string shortestCandidate = s;
+            StringBuilder candidateSb = new StringBuilder();
             var candidateEntries = new Dictionary<char, int>();
             bool removedIrelevant = false;
             bool addedRemoved = false;
             char removedSymbol = '0';
 
-            string candidateStr = string.Empty;
-
-            while (firstPointer < s.Length && 
+            while (firstPointer < s.Length &&
                 IsPointerMove(firstPointer, secondPointer, prevFirstPointer, prevSecondPointer))
             {
                 prevFirstPointer = firstPointer;
                 prevSecondPointer = secondPointer;
 
-                candidateStr = s.Substring(firstPointer, secondPointer - firstPointer);
-
-                // TODO: candidate could be built faster just by adding and removing symbols to existing
-                // candidate!!! 
-                //if (prevFirstPointer < firstPointer && candidate.Length > 0)
-                //{
-                //    candidate.Remove(0, 1);
-                //}
-                //if (prevSecondPointer < secondPointer)
-                //{
-                //    if (prevSecondPointer >= 0)
-                //        candidate.Append(s[prevSecondPointer]);
-                //}
-
-                //string sb = candidate.ToString();
-                //if (sb != candidateStr)
-                //{
-                //    sb = sb;
-                //}
-
                 // move first pointer till candidadate has all characters from t
                 // move second pointer till we candidate doesn't have all characters from t
-
                 // in the new candidate we should check not all entries, but only those that were
                 // removed when moving the window, otherwise it will be too many comparations!!! 
-
-                if (removedIrelevant || addedRemoved || 
-                    (!_candidateFound && ContainsAllCharacters(candidateEntries, tEntries))
+                if (removedIrelevant || addedRemoved ||
+                    (ContainsAllCharacters(candidateEntries, tEntries))
                     )
                 {
-                    if (candidate.Length < shortestCandidate.Length)
-                        //shortestCandidate = candidate.ToString();
-                        shortestCandidate = candidateStr;
+                    if (candidateSb.Length < shortestCandidate.Length)
+                        shortestCandidate = candidateSb.ToString();
 
                     // remove from dictionary here
                     char removedCh = s[firstPointer];
@@ -79,6 +55,9 @@ namespace ConsoleApp1
                     }
                     else
                         removedIrelevant = true;
+
+                    if (candidateSb.Length > 1)
+                        candidateSb.Remove(0, 1);
 
                     addedRemoved = false;
                     firstPointer++;
@@ -97,7 +76,10 @@ namespace ConsoleApp1
                             else
                                 candidateEntries.Add(key, 1);
                         }
+
+                        candidateSb.Append(key);
                     }
+
 
                     removedIrelevant = false;
                     secondPointer++;
@@ -119,20 +101,19 @@ namespace ConsoleApp1
             return string.Empty;
         }
 
-        private bool IsPointerMove(int firstPointer, int secondPointer, 
+        private bool IsPointerMove(int firstPointer, int secondPointer,
             int prevFirstPointer, int prevSecondPointer)
         {
             return !(firstPointer == prevFirstPointer && secondPointer == prevSecondPointer);
         }
 
-        private bool ContainsAllCharacters(Dictionary<char, int> candidate, 
+        private bool ContainsAllCharacters(Dictionary<char, int> candidate,
             Dictionary<char, int> tEntries)
         {
             if (candidate.Keys.Count != tEntries.Keys.Count)
                 return false;
 
-            _candidateFound = !tEntries.Any(e => candidate[e.Key] < e.Value);
-            return _candidateFound;
+            return !tEntries.Any(e => candidate[e.Key] < e.Value);
         }
     }
 }
