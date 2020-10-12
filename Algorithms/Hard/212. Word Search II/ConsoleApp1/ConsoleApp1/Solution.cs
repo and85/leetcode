@@ -6,9 +6,9 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        public int NumIslands(char[][] grid)
+        public IList<string> FindWords(char[][] board, string[] words)
         {
-            
+            return null;
         }
     }
 }
