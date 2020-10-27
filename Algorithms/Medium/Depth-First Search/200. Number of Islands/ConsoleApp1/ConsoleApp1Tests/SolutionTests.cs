@@ -98,5 +98,26 @@ namespace ConsoleApp1.Tests
             // assert
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod()]
+        public void NumIslandsTest5()
+        {
+            // arrange
+            int expected = 1;
+            var grid = new char[][]
+            {
+                new char[] { '1' },
+                new char[] { '1' }
+            };
+
+
+            var solution = new Solution();
+
+            // act
+            int actual = solution.NumIslands(grid);
+
+            // assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
