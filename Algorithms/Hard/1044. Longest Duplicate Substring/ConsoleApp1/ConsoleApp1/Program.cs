@@ -6,7 +6,9 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var solution = new Solution();
+            solution.LongestDupSubstring("banana");
+            Console.ReadLine();
         }
     }
 }

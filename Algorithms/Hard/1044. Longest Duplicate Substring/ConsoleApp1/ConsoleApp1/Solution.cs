@@ -1,60 +1,83 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ConsoleApp1
 {
+    // not my solution. took from 
+    //https://leetcode.com/problems/longest-duplicate-substring/discuss/696057/c-faster-than-100.00-of-C-//submissions-O(n-log-n)
     public class Solution
     {
-        private System.Collections.Concurrent.ConcurrentDictionary<string, int> _substringCount 
-            = new System.Collections.Concurrent.ConcurrentDictionary<string, int>();
-        private static string LongestSubstring;
-        
-        private int _median;
-
         public string LongestDupSubstring(string s)
         {
-            LongestSubstring = string.Empty;
-            _median = s.Length / 2;
+            var longestSubstring = string.Empty;
+            var n = s.Length;
 
-            CountSubstrings(s);
+            var left = 1;
+            var right = n;
+            while (left <= right)
+            { 
+                var mid = left + (right - left) / 2;
 
-            return LongestSubstring; 
-        }
-
-        private void CountSubstrings(string s)
-        {
-            var tasks = new List<System.Threading.Tasks.Task>();
-
-            for (int i = 0; i < s.Length; i++)
-            {
-                string sub = s.Substring(i, s.Length - i);
-                tasks.Add(System.Threading.Tasks.Task.Factory.StartNew(() => GenerateSubstrings(sub)));
+                var found = FindSubstring(mid, s);
+                if (found != null)
+                {
+                    longestSubstring = found;
+                    left = mid + 1;
+                }
+                else
+                {
+                    right = mid - 1;
+                }
             }
 
-            System.Threading.Tasks.Task.WaitAll(tasks.ToArray());
+            return longestSubstring;
         }
 
-        private void GenerateSubstrings(string s)
+        private string FindSubstring(int subLen, string s)
         {
-            int maxSubstringLenght = Math.Min(_median, s.Length);
+            var hash = Hash(s.Substring(0, subLen));
 
-            StringBuilder substring = new StringBuilder(maxSubstringLenght);
-            for (int i = 0; i < maxSubstringLenght; i++)
-            {
-                substring.Append(s[i]);
-                UpdateCounter(substring.ToString());
+            var set = new HashSet<long> {
+            hash
+        };
+
+            var pow = 1L;
+            for (var i = 1; i < subLen; i++)
+                pow *= 31;
+
+            var n = s.Length;
+            for (var i = 0; i < n - subLen; ++i)
+            { //O(n)
+                hash = NextHash(pow, hash, s[i], s[i + subLen]);
+                if (!set.Add(hash))
+                    return s.Substring(i + 1, subLen);
             }
+
+            return null;
         }
 
-        private void UpdateCounter(string key)
+        private long Hash(string s)
         {
-            if (!_substringCount.TryAdd(key, 1))
+            var h = 0L;
+            var a = 1L;
+
+            var n = s.Length;
+            for (var k = n; k >= 1; k--)
             {
-                if (key.Length > LongestSubstring.Length)
-                    LongestSubstring = key;
+                var ch = s[k - 1];
+                h += (ch - 'a' + 1) * a;
+                a *= 31;
             }
+
+            return h;
+        }
+
+        private long NextHash(long pow, long hash, char left, char right)
+        {
+            return (hash - (left - 'a' + 1) * pow) * 31 + (right - 'a' + 1);
         }
     }
 }
