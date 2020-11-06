@@ -6,7 +6,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int[] input = { 1, -1 };
+            int[] input = { 1, 2, 3, 4 };
 
             var solution = new Solution();
             solution.ProductExceptSelf(input);
