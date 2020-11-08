@@ -8,23 +8,16 @@ namespace ConsoleApp1
     {
         public int MaxSubArray(int[] nums)
         {
-            int maxSum = int.MinValue;
-            int curSum = 0;
-            int prevSum = 0;
-            for (int i = 0; i < nums.Length; i++)
+            int n = nums.Length, maxSum = nums[0];
+            for (int i = 1; i < n; ++i)
             {
-                if (prevSum + nums[i] > prevSum)
-                {
-                    prevSum += nums[i];
-                }
-                else
-                {
-                    prevSum = 0;
-                }
-                Console.WriteLine(prevSum);
+                if (nums[i - 1] > 0) 
+                    nums[i] += nums[i - 1];
+                
+                maxSum = Math.Max(nums[i], maxSum);
             }
 
-            return 0;
+            return maxSum;
         }
     }
 }
