@@ -8,7 +8,9 @@ namespace ConsoleApp1
     {
         public int NumDecodings(string s)
         {
-            return 0;
+
+           
+
         }
     }
 }
