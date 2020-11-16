@@ -6,6 +6,9 @@ namespace ConsoleApp1
 {
     public class Solution
     {
+        private const char OpenBracket = '(';
+        private const char ClosedBracket = ')';
+
         class Bracket
         {
             public Bracket(char symbol, int index)
@@ -55,17 +58,17 @@ namespace ConsoleApp1
             var invalidStack = new Stack<Bracket>();
             for (int i = 0; i < s.Length; i++)
             {
-                if (s[i] == '(')
+                if (s[i] == OpenBracket)
                 {
                     invalidStack.Push(new Bracket(s[i], i));
                     continue;
                 }
 
-                if (s[i] == ')')
+                if (s[i] == ClosedBracket)
                 {
                     if (invalidStack.TryPeek(out var peek))
                     {
-                        if (peek.Symbol == '(')
+                        if (peek.Symbol == OpenBracket)
                         {
                             invalidStack.Pop();
                             continue;
