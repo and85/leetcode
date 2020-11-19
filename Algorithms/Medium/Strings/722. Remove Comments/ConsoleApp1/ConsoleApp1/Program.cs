@@ -18,7 +18,7 @@ namespace ConsoleApp1
                 "int main()", 
                 "{ ", 
                 "  // variable declaration ", 
-                "int a, b, c;", 
+                "int a, /* aassas */ 8b, /*dsdsd*/ c;", 
                 "/* This is a test", 
                 "   multiline  ", 
                 "   comment for ", 

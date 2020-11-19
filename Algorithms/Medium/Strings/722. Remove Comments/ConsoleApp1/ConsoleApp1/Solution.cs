@@ -8,39 +8,67 @@ namespace ConsoleApp1
 {
     public class Solution
     {
+        // taken from the solution and slightly refactored
         public IList<string> RemoveComments(string[] source)
         {
-            for (int i = 0; i < source.Length; i++)
+            bool inCommentBlock = false;
+            StringBuilder newline = new StringBuilder();
+            
+            List<string> result = new List<string>();
+
+            foreach (string line in source)
             {
-                // we could speed up index search if we used binary search instead
-                int singleLineInd = source[i].IndexOf("//");
-                
-                // we could have more than one multiline comment in a string
-                int multiLineOpenInd = source[i].IndexOf("/*");
-                int multiLineCloseInd = source[i].IndexOf("*/");
-
-                daea */ // /* fdsdfsf // */ dsdsd /*dsd*/
-
-                if (!IsMultiLineOpen() && IsSingleLineComment())
+                int i = 0;
+                char[] chars = line.ToCharArray();
+                if (!inCommentBlock) newline = new StringBuilder();
+                while (i < line.Length)
                 {
-
+                    if (!inCommentBlock && !EndOfLine(line, i) && MultipleLineCommentOpen(chars, i))
+                    {
+                        inCommentBlock = true;
+                        i++;
+                    }
+                    else if (inCommentBlock && !EndOfLine(line, i) && MultipleLineCommentClose(chars, i))
+                    {
+                        inCommentBlock = false;
+                        i++;
+                    }
+                    else if (!inCommentBlock && !EndOfLine(line, i) && SingleLineComment(chars, i))
+                    {
+                        break;
+                    }
+                    else if (!inCommentBlock)
+                    {
+                        newline.Append(chars[i]);
+                    }
+                    i++;
                 }
-
-
-                //Console.WriteLine($"{source[i]} | index1 {singlelineInd} index2 {multilineOpenInd} index3 {multilineCloseInd}");
+                if (!inCommentBlock && newline.Length > 0)
+                {
+                    result.Add(newline.ToString());
+                }
             }
-
-            return new List<string>() { "a", "b" };
+            return result;
         }
 
-        private bool IsSingleLineComment()
+        private bool EndOfLine(string line, int index)
         {
-            throw new NotImplementedException();
+            return index + 1 >= line.Length;
         }
 
-        private bool IsMultiLineOpen()
+        private bool MultipleLineCommentOpen(char[] chars, int i)
         {
-            throw new NotImplementedException();
+            return chars[i] == '/' && chars[i + 1] == '*';
+        }
+
+        private bool MultipleLineCommentClose(char[] chars, int i)
+        {
+            return chars[i] == '*' && chars[i + 1] == '/';
+        }
+
+        private bool SingleLineComment(char[] chars, int i)
+        {
+            return chars[i] == '/' && chars[i + 1] == '/';
         }
     }
 }
