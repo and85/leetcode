@@ -8,7 +8,7 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        // taken from the solution and slightly refactored
+        // taken from the solution and sli
         public IList<string> RemoveComments(string[] source)
         {
             bool inCommentBlock = false;

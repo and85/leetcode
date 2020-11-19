@@ -14,6 +14,7 @@ namespace ConsoleApp1
 
             string[] source = new string[] 
             {   
+                "/* something */ abc */",
                 "/*Test program */", 
                 "int main()", 
                 "{ ", 
