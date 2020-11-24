@@ -1,3 +1,5 @@
 1. if we have an array of positive integers, and want to mark visited elements in place without extra space, 
 we could just change a sign for touched elements to negative
 2. take your own markers to the interview, different colors
+3. Ингда чтобы проверить, что какая-то функция возвращает true или false, и сложно проверить одно условие, например true, можно проверить только условия когда результат false а в
+остальных случаях возвращать true. Пример: https://leetcode.com/problems/rectangle-overlap/
