@@ -3,3 +3,5 @@ we could just change a sign for touched elements to negative
 2. take your own markers to the interview, different colors
 3. Ингда чтобы проверить, что какая-то функция возвращает true или false, и сложно проверить одно условие, например true, можно проверить только условия когда результат false а в
 остальных случаях возвращать true. Пример: https://leetcode.com/problems/rectangle-overlap/
+4. Чтобы поменять направление вектора, можно увеличивать направление как число и делить на модуль 4, чтобы не было переполнения и всегда получать адекватное направление:
+https://leetcode.com/problems/robot-bounded-in-circle/solution/
