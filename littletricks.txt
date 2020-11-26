@@ -12,3 +12,5 @@ private bool IsPerfectSquare(double x)
 
             return ((sr - Math.Floor(sr)) == 0);
         }
+6. Array.Sort is not stable sorting. If we want to have a stable sorting, use Lynq OrderBy or create stabilyzing comparer:
+https://leetcode.com/problems/reorder-data-in-log-files/discuss/939487/c-two-approaches
