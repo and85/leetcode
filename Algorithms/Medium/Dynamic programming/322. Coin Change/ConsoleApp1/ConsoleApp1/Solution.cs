@@ -12,20 +12,23 @@ namespace ConsoleApp1
             if (amount == 0)
                 return 0;
 
-            coins = coins.Distinct().ToArray();
-            Array.Sort(coins);
-            coins = coins.Reverse().ToArray();
+            var dp = new int[amount + 1];
+            // fill by amount + 1, but not by int.Max to avoid integer overflow
+            Array.Fill(dp, amount + 1);
+            dp[0] = 0;
 
-            int coinsCounter = 0;
-            int result = 0;
-            while (coinsCounter < coins.Length && amount > 0)
+            for (int j = 1; j <= amount; j++)
             {
-                // what is the minimal possible result if we take this coin?
-
-                // what is the minimal possible result if we don't take this coin?
+                for (int i = 0; i < coins.Length; i++)
+                {
+                    if (coins[i] <= j)
+                    {
+                        dp[j] = Math.Min(dp[j], dp[j - coins[i]] + 1);
+                    }
+                }
             }
 
-            return (amount == 0) ? result : -1;
+            return dp[amount] > amount ? -1 : dp[amount];
         }
     }
 }
