@@ -16,3 +16,8 @@ private bool IsPerfectSquare(double x)
 https://leetcode.com/problems/reorder-data-in-log-files/discuss/939487/c-two-approaches
 7. to avoid integer overflow errors, sometimes we should use target + 1 instead of int.Max
 https://leetcode.com/problems/coin-change/submissions/
+8. C# List contains indexer which allows O(1) access because of the internal implementation as array. e.g. we can write something
+like:
+var list = new List<List<int>>();
+...
+list[1].Add
