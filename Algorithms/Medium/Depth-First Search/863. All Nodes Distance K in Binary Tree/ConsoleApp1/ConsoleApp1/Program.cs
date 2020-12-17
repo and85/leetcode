@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    public class Solution
+    class Program
     {
-        public string DecodeString(string s)
+        static void Main(string[] args)
         {
-            
         }
     }
 }

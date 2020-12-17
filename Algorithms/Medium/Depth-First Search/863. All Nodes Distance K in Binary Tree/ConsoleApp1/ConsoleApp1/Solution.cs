@@ -8,16 +8,8 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        private int _height;
-        private int _width;
-        private int[][] _grid;
-
-
-        public int FindCircleNum(int[][] M)
+        public IList<int> DistanceK(TreeNode root, TreeNode target, int K)
         {
-           
         }
-
-        
     }
 }
