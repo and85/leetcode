@@ -33,3 +33,4 @@ list[1].Add
 Binary trees can also be stored in breadth-first order as an implicit data structure in arrays, and if the tree is a complete binary tree, this method wastes no space. In this compact arrangement, if a node has an index i, its children are found at indices {\displaystyle 2i+1}2i+1 (for the left child) and {\displaystyle 2i+2}2i+2 (for the right), while its parent (if any) is found at index {\displaystyle \left\lfloor {\frac {i-1}{2}}\right\rfloor }\left\lfloor {\frac {i-1}{2}}\right\rfloor  (assuming the root has index zero).
 
 10. The best-known rule for traversing mazes is the wall follower, also known as either the left-hand rule or the right-hand rule. 
+11. C# List class contains BinarySearch methid which works for sorted lists
