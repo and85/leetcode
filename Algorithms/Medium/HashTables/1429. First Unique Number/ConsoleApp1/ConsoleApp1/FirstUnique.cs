@@ -39,7 +39,7 @@ namespace ConsoleApp1
             foreach (var value in _queue)
             {
                 if (_dict[value] == 1)
-                    return _dict[value];
+                    return value;
             }
 
             return -1;
