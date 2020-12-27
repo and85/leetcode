@@ -10,6 +10,18 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            var solution = new RandomizedSet();
+            solution.Insert(1);
+            solution.Insert(2);
+            solution.Insert(3);
+            solution.Insert(4);
+            solution.Insert(5);
+
+            solution.Remove(2);
+
+            var r = solution.GetRandom();
+
+            Console.ReadLine();
         }
     }
 }

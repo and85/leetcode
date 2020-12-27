@@ -8,10 +8,6 @@ namespace ConsoleApp1
 {
     public class RandomizedSet
     {
-        // 
-        private Dictionary<long, int> _map = new Dictionary<long, int>();
-        private List<long> _values = new List<long>(); 
-
         /** Initialize your data structure here. */
         public RandomizedSet()
         {
@@ -21,31 +17,14 @@ namespace ConsoleApp1
         /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
         public bool Insert(int val)
         {
-            if (_map.ContainsKey(val))
-            {
-                if (_map[val] == int.MinValue)
-                {
-                    _map[val] = 
-                }
-
-                return false;
-            }
-
-            _map.Add(val, _values.Count);
-            _values.Add(val);
-
             return true;
         }
 
         /** Removes a value from the set. Returns true if the set contained the specified element. */
         public bool Remove(int val)
         {
-            //if (!_map.ContainsKey(val))
-            //    return false;
-
-            //var index = _map[val];
-            //_values.RemoveAt(index);
-
+            var list = new LinkedList<int>() { 1, 2, 3, 4, 5 };
+            list.RemoveAt(3);
             return true;
         }
 
