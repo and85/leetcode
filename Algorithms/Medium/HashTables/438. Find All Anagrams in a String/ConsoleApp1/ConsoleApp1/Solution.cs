@@ -39,6 +39,7 @@ namespace ConsoleApp1
 
         private bool IsAnagram(int[] htS, int[] htP)
         {
+            // or it could be: return Enumerable.SequenceEqual(htS, htP);
             for (int i = 0; i < 26; i++)
             {
                 if (htS[i] != htP[i])

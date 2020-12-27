@@ -12,14 +12,13 @@ namespace ConsoleApp1
         {
             var solution = new RandomizedSet();
             solution.Insert(1);
-            solution.Insert(2);
-            solution.Insert(3);
-            solution.Insert(4);
-            solution.Insert(5);
+            solution.Insert(10);
+            solution.Insert(20);
+            solution.Insert(30);
 
-            solution.Remove(2);
-
-            var r = solution.GetRandom();
+            var r1 = solution.GetRandom();
+            var r2 = solution.GetRandom();
+            var r3 = solution.GetRandom();
 
             Console.ReadLine();
         }

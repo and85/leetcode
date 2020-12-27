@@ -34,3 +34,5 @@ Binary trees can also be stored in breadth-first order as an implicit data struc
 
 10. The best-known rule for traversing mazes is the wall follower, also known as either the left-hand rule or the right-hand rule. 
 11. C# List class contains BinarySearch methid which works for sorted lists
+12. C# Random.Next(minValue, maxValue), upper bound is exclusive https://leetcode.com/problems/insert-delete-getrandom-o1/solution/
+13. We can remove an element from a list in O(1) time, just by swapping the element we want to remove with the last one: https://leetcode.com/problems/insert-delete-getrandom-o1/solution/
