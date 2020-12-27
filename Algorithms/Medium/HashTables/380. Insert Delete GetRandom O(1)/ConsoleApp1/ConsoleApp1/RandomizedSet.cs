@@ -60,7 +60,7 @@ namespace ConsoleApp1
         /** Get a random element from the set. */
         public int GetRandom()
         {
-            int randomIndex = _random.Next(0, _setCounter - 1);
+            int randomIndex = _random.Next(0, _setCounter);
             return _list[randomIndex];
         }
     }
