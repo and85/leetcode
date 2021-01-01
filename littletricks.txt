@@ -38,3 +38,5 @@ Binary trees can also be stored in breadth-first order as an implicit data struc
 13. We can remove an element from a list in O(1) time, just by swapping the element we want to remove with the last one: https://leetcode.com/problems/insert-delete-getrandom-o1/solution/
 14. C# OrderedDictionary is very wierd collection, e.g. it's not generic and it's not really intuitive how to use it properly. But similar functionality could be achieved by using a 
 simple combination of Queue/Stack together with Dictionary: https://leetcode.com/problems/first-unique-number/submissions/
+
+15. Dijkstra algorithm doesn't work correctly when there are negative weights of edges (it could give a wrong answer in such a case): https://www.youtube.com/watch?v=XB4MIexjvY0&ab_channel=AbdulBari
