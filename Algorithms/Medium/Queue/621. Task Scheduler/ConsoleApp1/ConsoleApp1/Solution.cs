@@ -8,62 +8,74 @@ namespace ConsoleApp1
     // https://leetcode.com/problems/task-scheduler/
     public class Solution
     {
+        private const char IdleTask = '0';
+        private int _cooldown;
+
         public int LeastInterval(char[] tasks, int n)
         {
+            if (n == 0)
+                return tasks.Length;
+
+            _cooldown = n;
+
             int leastInterval = 0;
-            char idle = '0';
+            var executedTasks = new Queue<char>();
 
-            Dictionary<char, int> taskEntrance = tasks.GroupBy(t => t)
-                .ToDictionary(g => g.Key, g => g.Count());
+            var allTasks = tasks.GroupBy(t => t).ToDictionary(t => t.Key, t => t.Count());
 
-            var lastProcessedTasks = new Queue<char>();
-            var leftTasks = new List<char>(tasks);
-
-            while (leftTasks.Count != 0)
+            //List<char> keys = allTasks.Keys.ToList();
+            while (allTasks.Count > 0)
             {
-                bool taskDone = false;
-                foreach (var task in taskEntrance.ToList())
+                var task = GetMostCommonTask(allTasks, executedTasks.ToList());
+
+                if (!executedTasks.Contains(task) && !task.Equals(IdleTask))
                 {
-                    if (CanExecute(task.Key, taskEntrance, lastProcessedTasks))
-                    {
-                        EnqueueTask(lastProcessedTasks, task.Key, n);
-                        taskDone = true;
-                        leastInterval += 1;
-                        leftTasks.Remove(task.Key);
-                        break;
-                    }
+                    allTasks[task]--;
+                    if (allTasks[task] == 0)
+                        allTasks.Remove(task);
+
+                    AddExecutedTask(executedTasks, task);
+                    leastInterval++;
                 }
 
-                if (!taskDone)
+                if (task.Equals(IdleTask))
                 {
-                    leastInterval += 1;
-                    EnqueueTask(lastProcessedTasks, idle, n);
+                    AddExecutedTask(executedTasks, IdleTask);
+                    leastInterval++;
                 }
             }
 
             return leastInterval;
         }
 
-        private static void EnqueueTask(Queue<char> queue, char task, int capacity)
+        private char GetMostCommonTask(Dictionary<char, int> allTasks, List<char> executedTasks)
         {
-            if (queue.Count == capacity && queue.Count > 0)
+            int max = 0;
+            char maxTask = IdleTask;
+            foreach (var t in allTasks)
             {
-                queue.Dequeue();
+                if (t.Value > max && !executedTasks.Contains(t.Key))
+                {
+                    max = t.Value;
+                    maxTask = t.Key;
+                }
             }
+            return maxTask;
 
-            if (capacity > 0)
-                queue.Enqueue(task);
+            //var feasibleTasks = allTasks.Where(t => !executedTasks.Contains(t.Key)).ToList();
+
+            //if (feasibleTasks.Count == 0)
+            //    return IdleTask;
+
+            //return feasibleTasks.First(t => t.Value == feasibleTasks.Max(t => t.Value)).Key;
         }
 
-        private bool CanExecute(char task, Dictionary<char, int> taskEntrance, Queue<char> queue)
+        private void AddExecutedTask(Queue<char> executedTasks, char task)
         {
-            if (taskEntrance.ContainsKey(task) && taskEntrance[task] > 0 && !queue.Contains(task))
-            {
-                taskEntrance[task]--;
-                return true;
-            }
-            return false;
+            if (executedTasks.Count == _cooldown)
+                executedTasks.Dequeue();
 
+            executedTasks.Enqueue(task);
         }
     }
 }
