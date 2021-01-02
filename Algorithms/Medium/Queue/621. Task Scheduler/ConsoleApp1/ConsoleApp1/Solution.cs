@@ -23,7 +23,6 @@ namespace ConsoleApp1
 
             var allTasks = tasks.GroupBy(t => t).ToDictionary(t => t.Key, t => t.Count());
 
-            //List<char> keys = allTasks.Keys.ToList();
             while (allTasks.Count > 0)
             {
                 var task = GetMostCommonTask(allTasks, executedTasks.ToList());
@@ -61,13 +60,6 @@ namespace ConsoleApp1
                 }
             }
             return maxTask;
-
-            //var feasibleTasks = allTasks.Where(t => !executedTasks.Contains(t.Key)).ToList();
-
-            //if (feasibleTasks.Count == 0)
-            //    return IdleTask;
-
-            //return feasibleTasks.First(t => t.Value == feasibleTasks.Max(t => t.Value)).Key;
         }
 
         private void AddExecutedTask(Queue<char> executedTasks, char task)
