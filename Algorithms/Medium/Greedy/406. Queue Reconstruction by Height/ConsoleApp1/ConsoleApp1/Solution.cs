@@ -25,7 +25,7 @@ namespace ConsoleApp1
             while (remainingPeople.Count > 0)
             {
                 person = GetShortestCandidate(people, selectedPeople, remainingPeople);
-                    selectedPeople.Add(person);
+                selectedPeople.Add(person);
                 remainingPeople.Remove(person);
                 //result[position] = people[person];
                 selectedIds.Add(person);
@@ -67,9 +67,6 @@ namespace ConsoleApp1
         {
             int personHeight = people[person][0];
             int expectedPeopleInFront = people[person][1];
-
-            //if (position == expectedPeopleInFront)
-            //    return true;
 
             int peopleInFront = selectedPeople.Count(p => people[p][0] >= personHeight);
 
