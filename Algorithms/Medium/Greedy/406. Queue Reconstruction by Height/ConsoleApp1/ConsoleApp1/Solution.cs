@@ -10,67 +10,24 @@ namespace ConsoleApp1
     {
         public int[][] ReconstructQueue(int[][] people)
         {
-            int[][] result = new int[people.Length][];
-            var selectedIds = new List<int>();
+            var orderedPpl = new List<int[]>();
 
-            int person;
-            var selectedPeople = new HashSet<int>();
-            var remainingPeople = new HashSet<int>();
-            for (int i = 0; i < people.Length; i++)
-                remainingPeople.Add(i);
+            // O(n log(n))
+            people = people
+                .OrderByDescending(p => p[0])
+                .ThenBy(p => p[1])
+                .ToArray();
 
-            // todo: do we need this loop? can'w we just iterate throuh remaining people and populate 
-            // result list?
-            //for (int position = 0; position < people.Length; position++)
-            while (remainingPeople.Count > 0)
+            // O(n^2), because Insert operation is O(n) for a list)
+            foreach (var p in people)
             {
-                person = GetShortestCandidate(people, selectedPeople, remainingPeople);
-                selectedPeople.Add(person);
-                remainingPeople.Remove(person);
-                //result[position] = people[person];
-                selectedIds.Add(person);
+                if (orderedPpl.Count == 0 || p[0] >= orderedPpl[orderedPpl.Count - 1][0])
+                    orderedPpl.Add(p);
+                else
+                    orderedPpl.Insert(p[1], p);
             }
 
-            int counter = 0;
-            foreach (var id in selectedIds)
-            {
-                result[counter++] = people[id];
-            }
-            
-            return result;
-        }
-
-        private int GetShortestCandidate(
-            int[][] people, 
-            HashSet<int> selectedPeople, 
-            HashSet<int> remainingPeople)
-        {
-            int minIndex = int.MaxValue, minHeight = int.MaxValue, height;
-            foreach (int i in remainingPeople)
-            {
-                if (IsFeasiblePerson(people, selectedPeople, i))
-                {
-                    height = people[i][0];
-                    if (minHeight > height)
-                    {
-                        minHeight = height;
-                        minIndex = i;
-                    }
-                }
-
-            }
-
-            return minIndex;
-        }
-
-        private bool IsFeasiblePerson(int[][] people, HashSet<int> selectedPeople, int person)
-        {
-            int personHeight = people[person][0];
-            int expectedPeopleInFront = people[person][1];
-
-            int peopleInFront = selectedPeople.Count(p => people[p][0] >= personHeight);
-
-            return expectedPeopleInFront == peopleInFront;
+            return orderedPpl.ToArray();
         }
     }
 }
