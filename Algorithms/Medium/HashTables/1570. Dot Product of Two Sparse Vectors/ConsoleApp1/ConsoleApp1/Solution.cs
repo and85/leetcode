@@ -9,8 +9,6 @@ namespace ConsoleApp1
     public class SparseVector
     {
         public Dictionary<int, int> Nums;
-        public int FirstIndex = -1;
-        public int LastIndex;
 
         public SparseVector(int[] nums)
         {
@@ -20,10 +18,6 @@ namespace ConsoleApp1
             {
                 if (nums[i] != 0)
                 {
-                    if (FirstIndex == -1)
-                        FirstIndex =  i;
-                    LastIndex = i;
-                    
                     Nums.Add(i, nums[i]);
                 }
             }
@@ -32,13 +26,11 @@ namespace ConsoleApp1
         // Return the dotProduct of two sparse vectors
         public int DotProduct(SparseVector vec)
         {
-            int minIndex = Math.Max(this.FirstIndex, vec.FirstIndex);
-            int maxIndex = Math.Max(this.LastIndex, vec.LastIndex);
             int sum = 0;
-            for (int i = minIndex; i <= maxIndex; i++)
+            foreach (var v in this.Nums)
             {
-                if (this.Nums.ContainsKey(i) && vec.Nums.ContainsKey(i))
-                    sum += this.Nums[i] * vec.Nums[i];
+                if (vec.Nums.ContainsKey(v.Key))
+                    sum += v.Value * vec.Nums[v.Key];
             }
 
             return sum;
