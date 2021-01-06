@@ -22,16 +22,27 @@ namespace ConsoleApp1
                 .ToArray();
 
             int taps = 1;
-            var covered = intervals[0];
-            for (int i = 1; i < intervals.Length; i++)
-            {
-                if (intervals[i].Start > covered.End)
-                    return -1;
+            int coveredIndex = 0;
+            var covered = intervals[coveredIndex];
 
-                if (intervals[i].End > covered.End)
+            while (coveredIndex <= n)
+            {
+                for (int i = coveredIndex + 1; i < intervals.Length; i++)
                 {
-                    covered.End = intervals[i].End;
-                    taps++;
+                    if (intervals[i].Start > covered.End)
+                        return -1;
+
+                    if (intervals[i].Start > intervals[coveredIndex].End)
+                    {
+                        coveredIndex = i;
+                        continue;
+                    }    
+
+                    if (intervals[i].End > covered.End)
+                    {
+                        covered.End = intervals[i].End;
+                        taps++;
+                    }
                 }
             }
 
