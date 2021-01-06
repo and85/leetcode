@@ -15,6 +15,7 @@ namespace NUnitTestProject1
         [TestCase(7, new int[] { 1, 2, 1, 0, 2, 1, 0, 1 }, 3)]
         [TestCase(8, new int[] { 4, 0, 0, 0, 0, 0, 0, 0, 4 }, 2)]
         [TestCase(8, new int[] { 4, 0, 0, 0, 4, 0, 0, 0, 4 }, 1)]
+        [TestCase(9, new int[] { 0, 5, 0, 3, 3, 3, 1, 4, 0, 4 }, 2)]
         public void TestMinTaps(int n, int[] ranges, int expected)
         {
             // arrange
