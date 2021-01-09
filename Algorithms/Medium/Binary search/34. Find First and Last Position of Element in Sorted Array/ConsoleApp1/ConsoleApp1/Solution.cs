@@ -17,13 +17,6 @@ namespace ConsoleApp1
             while (left + 1 < right)
             {
                 int mid = left + (right - left) / 2;
-                if (nums[mid] == target)
-                {
-                    if (nums[mid + 1] == target )
-                        return new int[] { mid, mid + 1};
-                    if (nums[mid - 1] == target)
-                        return new int[] { mid - 1, mid };
-                }
                 if (nums[mid] < target)
                 {
                     left = mid;
@@ -36,21 +29,29 @@ namespace ConsoleApp1
 
             // Post-processing:
             // End Condition: left + 1 == right
-            if (right + 1 < nums.Length && nums[right] == target && nums[right + 1] == target) 
-                return new[] { right, right + 1 };
-            if (left + 1 < nums.Length && nums[left] == target && nums[left + 1] == target)
-                return new[] { left, left + 1 };
+            if (nums[left] == target)
+            {
+                return GetMatchEnd(nums, left);
+            }
 
-            if (left > 0 && nums[left - 1] == target && nums[left] == target)
-                return new[] { left - 1, left };
-
-            if (left > 0 && nums[left - 1] == target)
-                return new[] { left - 1, left - 1 };
-
-            if (nums[left] == target) return new[] { left, left };
-            if (nums[right] == target) return new[] { right, right };
+            if (nums[right] == target)
+            {
+                return GetMatchEnd(nums, right);
+            }
 
             return new int[]{ -1, -1};
+        }
+
+        private int[] GetMatchEnd(int[] nums, int start)
+        {
+            int end = start;
+            for (int i = start + 1; i < nums.Length; i++)
+            {
+                if (nums[i] == nums[start])
+                    end = i;
+            }
+
+            return new int[] { start, end };
         }
     }
 }
