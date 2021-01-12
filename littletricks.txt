@@ -42,3 +42,6 @@ Binary trees can also be stored in breadth-first order as an implicit data struc
 simple combination of Queue/Stack together with Dictionary: https://leetcode.com/problems/first-unique-number/submissions/
 
 15. Dijkstra algorithm doesn't work correctly when there are negative weights of edges (it could give a wrong answer in such a case): https://www.youtube.com/watch?v=XB4MIexjvY0&ab_channel=AbdulBari
+16.Bellman-Ford works for graphs with nagitive edges, works for graphs with cycles, but fails for graphs with cycles with negative edges. But it's possible to detect if there is a cycle with negative edge. 
+(at the last step, none vertixes have to be relaxed, and if there are, we have faced the cycle)
+https://www.youtube.com/watch?v=FtN3BYH2Zes&ab_channel=AbdulBari
