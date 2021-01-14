@@ -10,6 +10,10 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            var solution = new Solution();
+            solution.FindComplement(5);
+
+            Console.ReadLine();
         }
     }
 }
