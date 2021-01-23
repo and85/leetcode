@@ -55,3 +55,5 @@ https://leetcode.com/problems/remove-outermost-parentheses/discuss/1020240/C-99.
 (a + b) mod m = (a mod m + b mod m) mod m
 (a − b) mod m = (a mod m − b mod m) mod m
 (a · b) mod m = (a mod m · b mod m) mod m
+
+19. additionally to two pointers, we can use 3 pointers, etc
