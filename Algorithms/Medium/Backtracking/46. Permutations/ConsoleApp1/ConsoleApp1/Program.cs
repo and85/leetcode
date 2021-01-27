@@ -7,7 +7,7 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             var solution = new Solution();
-            solution.Permute(new int[] { 1, 2, 3 });
+            solution.Permute(new int[] { 1, 2, 3, 4 });
 
             Console.ReadLine();
         }

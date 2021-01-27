@@ -1,46 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ConsoleApp1
 {
     public class Solution
     {
-        private int[] _nums;
         private int _lenght;
+        private int[] _nums;
 
         private IList<IList<int>> _result = new List<IList<int>>();
 
-        public IList<IList<int>> Permute(int[] mums)
+        public IList<IList<int>> Permute(int[] nums)
         {
-            _nums = mums;
-            _lenght = _nums.Length;
-
+            _nums = nums;
+            _lenght = nums.Length;
+            
             Backtrack(0, new List<int>());
+
             return _result;
         }
 
         private void Backtrack(int first, List<int> currentSolution)
         {
-            if (first == _lenght)
-                return;
-
-            currentSolution.Add(_nums[first]);
-
             if (currentSolution.Count == _lenght)
-            {
                 _result.Add(new List<int>(currentSolution));
-                //return;
-            }
-            
-            for (int i = 0; i < _lenght; ++i)
+
+            for (int i = 0; i < _lenght; i++)
             {
-                if (i == first)
+                if (currentSolution.Contains(_nums[i]))
                     continue;
 
                 currentSolution.Add(_nums[i]);
-                
-                Backtrack(i + 1, currentSolution);
+
+                Backtrack(i, currentSolution);
 
                 currentSolution.RemoveAt(currentSolution.Count - 1);
             }
