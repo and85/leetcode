@@ -57,3 +57,6 @@ https://leetcode.com/problems/remove-outermost-parentheses/discuss/1020240/C-99.
 (a · b) mod m = (a mod m · b mod m) mod m
 
 19. additionally to two pointers, we can use 3 pointers, etc
+
+20. Number of possible substrings concatanation of which could form a string s, is equal to Sqrt(s.Lenght)
+https://leetcode.com/problems/repeated-substring-pattern/solution/
