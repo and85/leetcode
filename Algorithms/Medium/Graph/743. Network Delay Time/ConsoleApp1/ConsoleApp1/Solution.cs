@@ -7,7 +7,6 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-
         public int NetworkDelayTime(int[][] times, int n, int k)
         {
             // implementation of Belman-Ford Algorithm
@@ -23,14 +22,23 @@ namespace ConsoleApp1
 
             for (int i = 0; i < n - 1; i++)
             {
+                bool isRelaxed = false;
                 for (int t = 0; t < times.Length; t++)
                 {
                     u = times[t][0];
                     v = times[t][1];
                     w = times[t][2];
 
-                    costs[v] = Math.Min(costs[v], costs[u] + w);
+                    double candidateCost = costs[u] + w;
+                    if (costs[v] > candidateCost)
+                    {
+                        costs[v] = candidateCost;
+                        isRelaxed = true;
+                    }
                 }
+
+                if (!isRelaxed) 
+                    break;
             }
 
             double maxCost = costs.Values.Max();
