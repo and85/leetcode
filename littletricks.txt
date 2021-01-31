@@ -60,3 +60,4 @@ https://leetcode.com/problems/remove-outermost-parentheses/discuss/1020240/C-99.
 
 20. Number of possible substrings concatanation of which could form a string s, is equal to Sqrt(s.Lenght)
 https://leetcode.com/problems/repeated-substring-pattern/solution/
+21. sometimes we could use some other data structures as a stack: https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/solution/
