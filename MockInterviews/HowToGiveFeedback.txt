@@ -1,0 +1,5 @@
+1. How good was communication?
+2. How good was the algorithm?
+3. How good was a candidate coding?
+4. How good was time/space complexity?
+5. How good was testing/debuging?

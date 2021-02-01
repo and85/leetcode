@@ -5,34 +5,9 @@ using System.Text;
 
 namespace ConsoleApp1
 {
+    // very slow implementation, time Limit Exceeded
     public class Solution
     {
-        /*
-        [0, 1] [1, 3] [3, 5] [2, 7] [3, 2] [4, 6]  O(n^3) ?
-
-        [0, 1, 3] 
-
-
-        Public iterate(sets)
-
-        {
-        if (UnionFound) => Union
-           Iterate(sest)
-
-        If (unionNotFound)
-        Return sets.Count
-        }
-
-        0
-        |
-        1   -  3   - 5
-                |
-                2 - 7
-
-
-        4  -  6
-
-        */
         public int CountComponents(int n, int[][] edges)
         {
             var sets = new List<List<int>>();
@@ -47,7 +22,14 @@ namespace ConsoleApp1
 
             var res = Iterate(n, sets);
 
-            return res.Count;
+            int isolatedNodes = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                isolatedNodes += res.Any(r => r.Contains(i)) ? 0 : 1;
+            }
+
+            return res.Count + isolatedNodes;
         }
 
         private List<List<int>> Iterate(int n, List<List<int>> sets)
@@ -74,7 +56,7 @@ namespace ConsoleApp1
             }
 
             if (intersectionFound)
-                Iterate(n, res);
+                res = Iterate(n, res);
 
             return res;
         }
