@@ -8,46 +8,46 @@ namespace ConsoleApp1
     // very slow implementation, time Limit Exceeded
     public class Solution
     {
+        private int _setCounter = 0;
         public int CountComponents(int n, int[][] edges)
         {
-            var sets = new List<List<int>>();
+            var sets = new Dictionary<int, HashSet<int>>();
             for (int i = 0; i < edges.Length; i++)
             {
-                var list = new List<int>();
-                list.Add(edges[i][0]);
-                list.Add(edges[i][1]);
+                var set = new HashSet<int>();
+                set.Add(edges[i][0]);
+                set.Add(edges[i][1]);
 
-                sets.Add(list);
+                sets.Add(_setCounter++, set);
             }
-
-            var res = Iterate(n, sets);
+            
+            Iterate(n, sets);
 
             int isolatedNodes = 0;
 
             for (int i = 0; i < n; i++)
             {
-                isolatedNodes += res.Any(r => r.Contains(i)) ? 0 : 1;
+                isolatedNodes += sets.Any(r => r.Value.Contains(i)) ? 0 : 1;
             }
 
-            return res.Count + isolatedNodes;
+            return sets.Count + isolatedNodes;
         }
 
-        private List<List<int>> Iterate(int n, List<List<int>> sets)
+        private void Iterate(int n, Dictionary<int, HashSet<int>> sets)
         {
-            List<List<int>> res = new List<List<int>>();
-            foreach (var set in sets)
-                res.Add(set);
-
             bool intersectionFound = false;
 
-            for (int i = 0; i < sets.Count; i++)
+            foreach (var set1 in sets)
             {
-                for (int j = i + 1; j < sets.Count; j++)
+                foreach (var set2 in sets)
                 {
-                    intersectionFound = IntersectionFound(sets[i], sets[j]);
+                    if (set1.Key == set2.Key)
+                        continue;
+
+                    intersectionFound = IntersectionFound(set1.Value, set2.Value);
                     if (intersectionFound)
                     {
-                        res = Union(sets, i, j);
+                        Union(sets, set1.Key, set2.Key);
                         break;
                     }
                 }
@@ -56,28 +56,19 @@ namespace ConsoleApp1
             }
 
             if (intersectionFound)
-                res = Iterate(n, res);
-
-            return res;
+                Iterate(n, sets);            
         }
 
-        private List<List<int>> Union(List<List<int>> sets, int i, int j)
+        private void Union(Dictionary<int, HashSet<int>> sets, int i, int j)
         {
-            var unitedSet = sets[i].Union(sets[j]).ToList();
-            var newSet = new List<List<int>>();
-            newSet.Add(unitedSet);
+            var unitedSet = sets[i].Union(sets[j]).ToHashSet();
 
-            for (int s = 0; s < sets.Count; s++)
-            {
-                if (s != i && s != j)
-                    newSet.Add(sets[s]);
-
-            }
-
-            return newSet;
+            sets.Add(_setCounter++, unitedSet);
+            sets.Remove(i);
+            sets.Remove(j);
         }
 
-        private bool IntersectionFound(List<int> s1, List<int> s2)
+        private bool IntersectionFound(HashSet<int> s1, HashSet<int> s2)
         {
             return s1.Any(s => s2.Contains(s));
         }
