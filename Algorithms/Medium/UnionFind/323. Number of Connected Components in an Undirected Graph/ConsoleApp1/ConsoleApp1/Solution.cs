@@ -5,7 +5,6 @@ using System.Text;
 
 namespace ConsoleApp1
 {
-    // very slow implementation, time Limit Exceeded
     public class Solution
     {
         private int _setCounter = 0;
@@ -20,7 +19,7 @@ namespace ConsoleApp1
 
                 sets.Add(_setCounter++, set);
             }
-            
+
             Iterate(n, sets);
 
             int isolatedNodes = 0;
@@ -56,7 +55,7 @@ namespace ConsoleApp1
             }
 
             if (intersectionFound)
-                Iterate(n, sets);            
+                Iterate(n, sets);
         }
 
         private void Union(Dictionary<int, HashSet<int>> sets, int i, int j)
