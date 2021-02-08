@@ -15,12 +15,14 @@ namespace ConsoleApp1
 
             public int Val { get; set; }
             public ListNode Next { get; set; }
+
+            public ListNode Prev { get; set; }
         }
 
 
         private ListNode _head;
-        private ListNode _tail;
-        private int _nodeCounter = 0;
+        private int _length;
+
 
         /** Initialize your data structure here. */
         public MyLinkedList()
@@ -31,10 +33,17 @@ namespace ConsoleApp1
         /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
         public int Get(int index)
         {
-            var curr = _head;
-            for (int i = 0; i < index; i++)
+            if (index >= _length)
+                return -1;
+
+            ListNode curr = _head;
+
+            int i = 0;
+
+            while (curr != null && i < index)
             {
                 curr = curr.Next;
+                i++;
             }
 
             return curr.Val;
@@ -49,34 +58,50 @@ namespace ConsoleApp1
         /** Append a node of value val to the last element of the linked list. */
         public void AddAtTail(int val)
         {
-            AddAtIndex(_nodeCounter, val);
+            AddAtIndex(_length, val);
         }
 
         /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
         public void AddAtIndex(int index, int val)
         {
-            if (index == 0 && _nodeCounter == 0)
+            var newNode = new ListNode(val);
+
+            if (_head == null)
             {
-                _head = new ListNode(val);
+                _head = newNode;
+                _length++;
                 return;
             }
 
-            var curr = _head;
-            for (int i = 0; i < index - 1; i++)
+            if (index == 0)
             {
-                curr = curr.Next;
+                newNode.Next = _head;
+                _head.Prev = newNode;
+                _head = newNode;
+                _length++;
+                return;
             }
 
-            var nextNode = curr?.Next;
-            var newNode = new ListNode(val);
+            ListNode curr = _head, prev = _head;
+
+            int i = 0;
+
+            while (curr != null && i < index)
+            {
+                prev = curr;
+                curr = curr.Next;
+                i++;
+            }
+
+            prev.Next = newNode;
+            newNode.Prev = prev;
+            newNode.Next = curr;
             
-            curr.Next = newNode;
-            curr.Next.Next = nextNode;
+            if (curr != null)
+                curr.Prev = newNode;
 
-            if (index == _nodeCounter)
-                _tail = newNode;
-
-            _nodeCounter++;
+            _length++;
+            
         }
 
         /** Delete the index-th node in the linked list, if the index is valid. */
@@ -85,23 +110,35 @@ namespace ConsoleApp1
             if (index == 0)
             {
                 _head = _head.Next;
+
+                if (_head != null)
+                    _head.Prev = null;
+
+                _length--;
                 return;
             }
 
-            var curr = _head;
-            for (int i = 0; i < index - 1; i++)
+            ListNode curr = _head;
+
+            int i = 0;
+
+            while (curr != null && i < index)
             {
                 curr = curr.Next;
+                i++;
             }
 
-            curr.Next = curr.Next?.Next;
 
-            if (index == _nodeCounter - 1)
+            if (curr != null)
             {
-                _tail = curr;
-            }
+                ListNode prev = curr.Prev;
+                ListNode next = curr.Next;
+                if (next != null)
+                    next.Prev = prev;
 
-            _nodeCounter--;
+                prev.Next = next;
+                _length--;
+            }
         }
     }
 
