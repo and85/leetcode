@@ -1,5 +1,11 @@
+Algorithms:
 1. How good was communication?
 2. How good was the algorithm?
 3. How good was a candidate coding?
 4. How good was time/space complexity?
 5. How good was testing/debuging?
+
+System design:
+1. Gather requirements. functional not functional requirements
+2. Кол-во запросов в секунду, сколько данных храним, etc
+
