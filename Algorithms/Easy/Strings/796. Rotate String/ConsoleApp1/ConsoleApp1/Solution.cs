@@ -6,32 +6,27 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        public bool RotateString(string A, string B)
+        public bool RotateString(string a, string b)
         {
-            if (A?.Length != B?.Length)
+            if (a?.Length != b?.Length)
                 return false;
 
-            if (string.IsNullOrWhiteSpace(A) && string.IsNullOrWhiteSpace(B))
+            if (string.IsNullOrWhiteSpace(a) && string.IsNullOrWhiteSpace(b))
                 return true;
 
-            int i = A.Length - 1;
-            int j = B.IndexOf(A[A.Length - 1]);
-
-            if (j == -1)
-                return false;
-
-            while (i >= 0)
+            var sb = new StringBuilder(a);
+            char fc;
+            for (int i = 0; i < a.Length; i++)
             {
-                if (A[i] != B[j])
-                    return false;
-                i--;
-                j--;
+                fc = sb[0];                
+                sb.Remove(0, 1);
+                sb.Append(fc);
 
-                if (j < 0)
-                    j = B.Length - 1;
+                if (sb.Equals(b))
+                    return true;
             }
 
-            return true;
+            return false;
         }
 
     }
