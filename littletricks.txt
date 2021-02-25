@@ -61,3 +61,32 @@ https://leetcode.com/problems/remove-outermost-parentheses/discuss/1020240/C-99.
 20. Number of possible substrings concatanation of which could form a string s, is equal to Sqrt(s.Lenght)
 https://leetcode.com/problems/repeated-substring-pattern/solution/
 21. sometimes we could use some other data structures as a stack: https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/solution/
+
+22. how to find a greatest common divisor of two numbers:
+
+Euclidean algorithm
+static int gcd(int a, int b)
+{
+	 
+	// Everything divides 0 
+	if (a == 0)
+	  return b;
+	if (b == 0)
+	  return a;
+ 
+	// base case
+	if (a == b)
+		return a;
+ 
+	// a is greater
+	if (a > b)
+		return gcd(a - b, b);
+		 
+	return gcd(a, b - a);
+}
+
+more efficient: modulo operator in Euclidean algorithm . 
+public int gcd(int x, int y) {
+        return x == 0 ? y : gcd(y%x, x);
+    }
+https://leetcode.com/problems/x-of-a-kind-in-a-deck-of-cards/solution/

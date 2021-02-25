@@ -9,18 +9,25 @@ namespace ConsoleApp1
         // Kadane's algorithm
         public int MaxProduct(int[] nums)
         {
-            int max = nums[0];            
-            int currentProduct = nums[0];
-            int currentProductMin = nums[0];
+			int n = nums.Length;
+			int max = nums[0];
+			int min = nums[0];
+			
+			int ans = 0;
+			for (int i = 1; i < n; i++)
+			{
+				if (Math.Abs(max * nums[i]) > Math.Abs(min))
+					min = Math.Min(nums[i], min * nums[i]);
 
-            for (int i = 1; i < nums.Length; i++)
-            {
-                currentProduct = Math.Max(nums[i], Math.Max(currentProduct * nums[i], currentProductMin * nums[i]));
-                currentProductMin = Math.Min(nums[i], currentProductMin * nums[i]);
-                max = Math.Max(max, currentProduct);
-            }
+				max = Math.Max(nums[i], max * nums[i]);
 
-            return max;
-        }
+				
+
+				//mn = Math.Min(nums[i], mn * nums[i]);
+
+				//ans = Math.Max(ans, Math.Max(Math.Abs(mn), mx));
+			}
+			return ans;
+		}
     }
 }
