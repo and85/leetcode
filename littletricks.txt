@@ -90,3 +90,5 @@ public int gcd(int x, int y) {
         return x == 0 ? y : gcd(y%x, x);
     }
 https://leetcode.com/problems/x-of-a-kind-in-a-deck-of-cards/solution/
+
+23. for some tasks related to matrixes, sometimes it makes sense to check diagonals (main diagonal and alternative diagonal), then maybe apply binary search, etc

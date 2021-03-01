@@ -8,7 +8,11 @@ namespace ConsoleApp1
     {
         public int MinimumCost(int N, int[][] connections)
         {
-            // implement using Prim's Algorithm or Kruskal's algorithm
+            // using Prism algorithm we will find a minimum spanning tree whic will include vertexes 
+            // reachable from the starting point, hence if the graph is not connected, some vertexes won't be visited
+            // and we will return -1 in this case
+
+            // https://yazankhalaileh.wordpress.com/2019/07/27/c-implementation-of-prims-algorithm-for-finding-a-minimum-spanning-tree/
             return 0;
         }
     }

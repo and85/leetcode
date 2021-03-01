@@ -8,15 +8,31 @@ namespace ConsoleApp1
     {
         public int CountNegatives(int[][] grid)
         {
-            int counter = 0, index;
+            //int counter = 0, index;
 
-            for (int r = 0; r < grid.Length; r++)
+            //for (int r = 0; r < grid.Length; r++)
+            //{
+            //    index = BinarySearch(grid[r]);
+            //    counter += grid[0].Length - index;
+            //}
+
+            //return counter;
+
+            int m = grid.Length;
+            int n = grid[0].Length;
+            int count = 0;
+            for (int i = 0; i < m; i++)
             {
-                index = BinarySearch(grid[r]);
-                counter += grid[0].Length - index;
+                while (n > 0)
+                {
+                    if (grid[i][n - 1] >= 0)
+                        break;
+                    count += (m - i);
+                    n--;
+                }
             }
+            return count;
 
-            return counter;
         }
         
         private int BinarySearch(int[] row)
