@@ -10,24 +10,20 @@ namespace ConsoleApp1
         public int MaxProduct(int[] nums)
         {
 			int n = nums.Length;
+			int curProduct = nums[0];
+			int curProductMin = nums[0];
 			int max = nums[0];
-			int min = nums[0];
 			
-			int ans = 0;
+
 			for (int i = 1; i < n; i++)
 			{
-				if (Math.Abs(max * nums[i]) > Math.Abs(min))
-					min = Math.Min(nums[i], min * nums[i]);
+				int tmp = curProduct;
+				curProduct = Math.Max(nums[i], Math.Max(tmp * nums[i], curProductMin * nums[i]));
+				curProductMin = Math.Min(nums[i], Math.Min(curProductMin * nums[i], tmp * nums[i]));
 
-				max = Math.Max(nums[i], max * nums[i]);
-
-				
-
-				//mn = Math.Min(nums[i], mn * nums[i]);
-
-				//ans = Math.Max(ans, Math.Max(Math.Abs(mn), mx));
+				max = Math.Max(max, curProduct);
 			}
-			return ans;
+			return max;
 		}
     }
 }
