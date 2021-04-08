@@ -94,3 +94,4 @@ https://leetcode.com/problems/x-of-a-kind-in-a-deck-of-cards/solution/
 23. for some tasks related to matrixes, sometimes it makes sense to check diagonals (main diagonal and alternative diagonal), then maybe apply binary search, etc
 24. sometimes it's possible to iteratively traverse a tree without using a stack or queue in a similar manner as we travers a linked list:
 https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/solution/
+25. With two pointers approach we could set one pointer to the beggining and the second one to the end, then move either left or right pointer depending on different conditions
