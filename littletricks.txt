@@ -48,6 +48,13 @@ simple combination of Queue/Stack together with Dictionary: https://leetcode.com
 16.Bellman-Ford works for graphs with nagitive edges, works for graphs with cycles, but fails for graphs with cycles with negative edges. But it's possible to detect if there is a cycle with negative edge. 
 (at the last step, none vertixes have to be relaxed, and if there are, we have faced the cycle)
 https://www.youtube.com/watch?v=FtN3BYH2Zes&ab_channel=AbdulBari
+usually Belman Ford time complexiy is O(V*E) = O(n^2), but for complete graphs it takes O(n^3)
+
+Dijkstra's algorithm uses a data structure for storing and querying partial solutions sorted by distance from the start. 
+While the original algorithm uses a min-priority queue and runs in time O((V+E) * logV), it can also be implemented in O(V^2). 
+
+
+
 17. sometimes we don't need to actually add items to stack, but can just count how many of them could be on stack, using a counter. That would give us O(1) space vs O(n) space
 https://leetcode.com/problems/remove-outermost-parentheses/discuss/1020240/C-99.2-Fast-O(1)-Memory-and-O(n)-Speed.
 
