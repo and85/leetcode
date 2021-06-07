@@ -1,0 +1,14 @@
+public class Solution {
+    public string DestCity(IList<IList<string>> paths) {
+    
+        var ingoing = new HashSet<string>();
+        var outgoing = new HashSet<string>();
+        foreach (var path in paths)
+        {
+            ingoing.Add(path[0]);
+            outgoing.Add(path[1]);
+        }
+        
+        return outgoing.Except(ingoing).First();
+    }
+}
