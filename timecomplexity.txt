@@ -1,5 +1,6 @@
 By looking at the constraints of a problem, we can often "guess" the solution.
 
+
 Common time complexities
 
 Let n be the main variable in the problem.
