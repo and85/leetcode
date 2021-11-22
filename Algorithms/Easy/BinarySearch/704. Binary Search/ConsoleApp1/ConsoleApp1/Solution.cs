@@ -8,21 +8,20 @@ namespace ConsoleApp1
     {
         public int Search(int[] nums, int target)
         {
-            int low = 0;
-            int high = nums.Length - 1;
-            int median;
+            int l = 0, r = nums.Length - 1;
 
-            while (low <= high)
+            while (l <= r)
             {
-                median = low + (high - low) / 2;
-                if (nums[median] == target)
-                    return median;
-                else if (nums[median] < target)
-                    low = median + 1;
-                else if (nums[median] > target)
-                    high = median - 1;
-            }
+                int m = l + (r - l) / 2;
 
+                if (nums[m] == target) return m;
+
+                if (target > nums[m])
+                    l = m + 1;
+                else
+                    r = m - 1;
+            }
+            
             return -1;
         }
     }

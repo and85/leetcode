@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
@@ -6,11 +10,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int[] nums = new int[] { 5};
-
             var solution = new Solution();
-            int res = solution.Search(nums, 5);
-            Console.WriteLine(res);
+            solution.GetRow(3);
             Console.ReadLine();
         }
     }
