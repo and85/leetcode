@@ -10,8 +10,23 @@ namespace ConsoleApp1
     {
         public int NumIdenticalPairs(int[] nums)
         {
+            //return Solution1(nums);
 
-            // n * (n – 1) // 2
+            int res = 0;
+            var dict = new Dictionary<int, int>();
+            foreach (int num in nums)
+            {
+                res += dict.ContainsKey(num) ? dict[num] : 0;                
+                if (dict.ContainsKey(num))
+                    dict[num]++;
+                else 
+                    dict.Add(num, 1);
+            }
+            return res;
+        }
+
+        private static int Solution1(int[] nums)
+        {
             var dict = nums.GroupBy(n => n).ToDictionary(n => n, n => n.Count());
             int sum = 0;
             foreach (var n in dict.Values)
