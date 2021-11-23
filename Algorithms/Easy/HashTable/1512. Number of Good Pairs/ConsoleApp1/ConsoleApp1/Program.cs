@@ -10,7 +10,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            var s = new Solution();
+            var s = new Solution_attempt1();
             int[] nums = new int[] { 1, 2, 3, 1, 1, 3 };
             Console.WriteLine(s.NumIdenticalPairs(nums));
             Console.ReadLine();

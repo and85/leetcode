@@ -6,13 +6,14 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        public int[] SortedSquares(int[] A)
+        public int[] SortedSquares(int[] nums)
         {
-            for (int i = 0; i < A.Length; i++)
-                A[i] = (int)Math.Pow(A[i], 2);
+            /*
+            input:      -4,    -1,    0,      3,      10 
+            output:     0,     16,    1,     -1,     -1                    
+            */
 
-            Array.Sort(A);
-            return A;
+            return null;
         }
     }
 }
