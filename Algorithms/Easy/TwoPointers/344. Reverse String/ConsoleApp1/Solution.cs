@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConsoleApp1
-{
-    public class Solution
+public class Solution {
+    public void ReverseString(char[] s) 
     {
-        public void ReverseString(char[] s)
+        // "h", "e", "l", "l", "o"    
+        int l = 0, r = s.Length - 1;
+
+        char t;
+        while (l < r)
         {
-            int left = 0, right = s.Length - 1;
-            while (left < right)
-            {
-                (s[left], s[right]) = (s[right--], s[left++]);
-            }
+            t = s[l];
+            s[l++] = s[r];
+            s[r--] = t;
         }
     }
 }
