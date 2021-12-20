@@ -8,28 +8,62 @@ namespace ConsoleApp1
 {
     public class Solution
     {
+        int _primeCounter = 0;
+        int[] _primes = new int[30000];
+
         public int CountPrimes(int n)
         {
-            int result = 0;
+            _primes[_primeCounter++] = 2;
+            _primes[_primeCounter++] = 3;
+            _primes[_primeCounter++] = 5;
+            _primes[_primeCounter++] = 7;
+            _primes[_primeCounter++] = 11;
+            int count = 0;
             for (int i = 2; i < n; i++)
             {
-                if (IsPrimeNaive(i))
-                    result++;
+                if (IsPrime(i)) count++;
             }
 
-            return result;
+            return count;
         }
 
-        private bool IsPrimeNaive(int n)
+        //List<int> _primes = new List<int>() { 2, 3, 5, 7, 11};
+        
+
+        private bool IsPrime(int num)
         {
-            if (n == 2) return true;
-            if (n % 2 == 0) return false;
-            
-            for (int i = 3; i <= Math.Sqrt(n); i += 2)
-                if (n % i == 0)
+            if (num <= 11)
+            {
+                if (_primes.Contains(num))
+                    return true;
+                else 
                     return false;
+            }            
+            
+            for (int p = 0; p < _primeCounter; p++)
+            {                
+                if (num % _primes[p] == 0) return false;
+            }
+
+
+            //_primes.Add(num);
+            _primes[_primeCounter++] = num;
+            return true;
+
+        }
+
+
+        private bool IsPrimeSlow(int num)
+        {
+            if (num == 1) return false;
+
+            for (int i = 2; i <= Math.Sqrt(num); i++)
+            {
+                if (num % i == 0) return false; 
+            }
 
             return true;
+
         }
     }
 }
