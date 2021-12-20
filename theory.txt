@@ -1,0 +1,1 @@
+Rabin-Karp, how to implement rolling hash without overflow (mod)
