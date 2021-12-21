@@ -11,7 +11,10 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             var solution = new Solution();
-            var actual = solution.CountPrimes(499979);
+            var actual1 = solution.CountPrimes(2);
+            var actual2 = solution.CountPrimes(11);
+            var actual3 = solution.CountPrimes(100);
+            var actual4 = solution.CountPrimes(499979);
         }
     }
 }
