@@ -6,7 +6,12 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var s = new Solution();
+            s.Reverse(123);
+            s.Reverse(-123);
+            s.Reverse(-1);
+
+            Console.WriteLine();
         }
     }
 }
