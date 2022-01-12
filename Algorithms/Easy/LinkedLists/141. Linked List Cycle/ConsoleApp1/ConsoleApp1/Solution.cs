@@ -19,6 +19,23 @@ namespace ConsoleApp1
 
         public bool HasCycle(ListNode head)
         {
+            ListNode slow = head?.next;
+            ListNode fast = head?.next?.next;
+
+            while (fast != null)
+            {
+                if (fast == slow) 
+                    return true;
+
+                slow = slow.next;
+                fast = fast.next?.next;
+            }
+
+            return false;
+        }
+
+        public bool HasCycle_Attempt1(ListNode head)
+        {
             ListNode slow = head;
             ListNode fast = head;
 
