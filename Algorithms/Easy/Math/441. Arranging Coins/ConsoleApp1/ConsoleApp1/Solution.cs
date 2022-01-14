@@ -10,6 +10,26 @@ namespace ConsoleApp1
     {
         public int ArrangeCoins(int n)
         {
+            long left = 0, right = n;
+
+            while (left <= right)
+            {
+                long m = left + (right - left) / 2;
+                long curCoins = (m + 1) * m / 2;
+
+                if (curCoins == n) return (int)m;
+
+                if (curCoins > n)
+                    right = m - 1;
+                if (curCoins < n)
+                    left = m + 1;
+            }
+
+            return (int)right;
+        }
+
+        public int Attempt1(int n)
+        {
             int curRow = 1;
             long maxNum = 0;
 

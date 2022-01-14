@@ -8,51 +8,82 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        //private HashSet<(int, int)> _visitedCells;
+
+        private int[][] _heights;
+        private int _m;
+        private int _n;
+
+        enum CanReachOcean
+        {
+            No = 0,
+            Yes = 1,
+            Undefined = 2
+        }
+
+        class Cell: IEquatable<Cell>
+        {
+            private int _width;
+
+            public Cell(int row, int column, int width)
+            {
+                Row = row;
+                Column = column;
+                _width = width;
+            }
+
+            public int Row { get; set; }
+            public int Column { get; set; }
+
+            public CanReachOcean CanReachPacific { get; set; } = CanReachOcean.Undefined;
+            public CanReachOcean CanReachAtlantic { get; set; } = CanReachOcean.Undefined;
+
+            public override bool Equals(object obj)
+            {
+                return Equals(obj as Cell);
+            }
+
+            public bool Equals(Cell other)
+            {
+                return other != null &&
+                       Row == other.Row &&
+                       Column == other.Column;
+            }
+
+            public override int GetHashCode()
+            {
+                return Row * _width + Column;
+            }
+        }
 
         public IList<IList<int>> PacificAtlantic(int[][] heights)
         {
-            //_visitedCells = new HashSet<(int, int)>();
+            _heights = heights;
+            _m = _heights.Length;
+            _n = _heights[0].Length;
 
             var result = new List<IList<int>>();
-            for (int r = 0; r < heights.Length; r++)
-            for (int c = 0; c < heights[r].Length; c++)
-            {
-                var visitedCells = new HashSet<(int, int)>();
-                if (CanReach(heights, r, c, visitedCells))
-                    result.Add(new List<int>() { r, c });
-            }
+            
+            // go by a spiral from border cells which already can reach at least one ocean and
+            // and check what cells they can impact
 
             return result;
         }
 
-        private bool CanReach(int[][] heights, int r, int c, HashSet<(int, int)> visitedCells)
+        private bool CanReachPacific(int r, int c)
         {
-            if (r < 0 || r >= heights.Length || c < 0 || c >= heights[r].Length)
-                return false;
-
-            bool pacific = r == 0 || c == 0;
-            bool atlantic = c == heights[r].Length - 1 || r == heights.Length - 1;
-
-            //if (_visitedCells.Contains((r, c)))
-            //    return pacific && atlantic;
-            
-            visitedCells.Add((r, c));            
-
-            if (pacific && atlantic) 
+           if (r == 0 || c == 0) 
                 return true;
 
-            if (r + 1 < heights.Length && heights[r][c] >= heights[r + 1][c] && !visitedCells.Contains((r + 1, c)))
-                return CanReach(heights, r + 1, c, visitedCells);
-            
-            if (r - 1 >= 0 && heights[r][c] >= heights[r - 1][c] && !visitedCells.Contains((r - 1, c)))
-                return CanReach(heights, r - 1, c, visitedCells);
+            if (r == _m || c == _n)
+                return false;
 
-            if (c + 1 < heights[r].Length && heights[r][c] >= heights[r][c + 1] && !visitedCells.Contains((r, c + 1)))
-                return CanReach(heights, r, c + 1, visitedCells);
+            return false;
+        }
 
-            if (c - 1 >= 0 && heights[r][c] >= heights[r][c - 1] && !visitedCells.Contains((r, c - 1)))
-                return CanReach(heights, r, c - 1, visitedCells);
+        private bool CanReachAtlantic(int r, int c)
+        {
+            if (r == _m || c == _n - 1) 
+                return true;            
 
             return false;
         }
