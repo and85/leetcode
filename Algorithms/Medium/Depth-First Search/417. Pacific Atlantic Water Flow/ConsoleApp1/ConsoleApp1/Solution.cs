@@ -10,15 +10,16 @@ namespace ConsoleApp1
     {
 
         private int[][] _heights;
-        private int _m;
-        private int _n;
+        private int _height;
+        private int _width;
 
-        enum CanReachOcean
+        private int[][] _neighborDirections = new int[][]
         {
-            No = 0,
-            Yes = 1,
-            Undefined = 2
-        }
+            new int[] { -1, 0 },
+            new int[] { 1, 0 },
+            new int[] { 0, -1 },
+            new int[] { 0, 1 },
+        };
 
         class Cell: IEquatable<Cell>
         {
@@ -32,10 +33,7 @@ namespace ConsoleApp1
             }
 
             public int Row { get; set; }
-            public int Column { get; set; }
-
-            public CanReachOcean CanReachPacific { get; set; } = CanReachOcean.Undefined;
-            public CanReachOcean CanReachAtlantic { get; set; } = CanReachOcean.Undefined;
+            public int Column { get; set; }                        
 
             public override bool Equals(object obj)
             {
@@ -58,34 +56,83 @@ namespace ConsoleApp1
         public IList<IList<int>> PacificAtlantic(int[][] heights)
         {
             _heights = heights;
-            _m = _heights.Length;
-            _n = _heights[0].Length;
+            _height = _heights.Length;
+            _width = _heights[0].Length;
 
             var result = new List<IList<int>>();
             
-            // go by a spiral from border cells which already can reach at least one ocean and
-            // and check what cells they can impact
+            var pacificReach = PacificReach();            
+            var atlanticReach = AtlanticReach();
+
+            var reachTwoOceans = pacificReach.Intersect(atlanticReach);
+            foreach (var cell in reachTwoOceans)
+            {
+                result.Add(new List<int>() { cell.Row, cell.Column });
+            }
 
             return result;
         }
 
-        private bool CanReachPacific(int r, int c)
+        private HashSet<Cell> AtlanticReach()
         {
-           if (r == 0 || c == 0) 
-                return true;
+            var visited = new HashSet<Cell>();
 
-            if (r == _m || c == _n)
-                return false;
+            for (int r = 0; r < _height; r++)
+            {                
+                var curCell = new Cell(r, _width - 1, _width);
+                Dfs(curCell, visited);
+            }
 
-            return false;
+            for (int c = 0; c < _width; c++)
+            {                
+                var curCell = new Cell(_height - 1, c, _width);
+                Dfs(curCell, visited);
+            }
+                
+            return visited;
         }
 
-        private bool CanReachAtlantic(int r, int c)
+        private HashSet<Cell> PacificReach()
         {
-            if (r == _m || c == _n - 1) 
-                return true;            
+            var visited = new HashSet<Cell>();
+            for (int r = 0; r < _height; r++)
+            {
+                var curCell = new Cell(r, 0, _width);                                
+                Dfs(curCell, visited);                
+            }
 
-            return false;
+            for (int c = 0; c < _width; c++)
+            {
+                var curCell = new Cell(0, c, _width);
+                Dfs(curCell, visited);
+            }
+
+            return visited;
+        }
+
+        private void Dfs(Cell curCell, HashSet<Cell> visited)
+        {
+            if (visited.Contains(curCell))
+                return;
+
+            visited.Add(curCell);
+
+            foreach (var direction in _neighborDirections)
+            {
+                var neighbor = new Cell(curCell.Row + direction[0], curCell.Column + direction[1], _width);
+                if (IsCellOutOfRange(neighbor))
+                    continue;
+
+                if (_heights[curCell.Row][curCell.Column] <= _heights[neighbor.Row][neighbor.Column])
+                {                    
+                    Dfs(neighbor, visited);
+                }
+            }
+        }
+
+        private bool IsCellOutOfRange(Cell curCell)
+        {
+            return curCell.Row < 0 || curCell.Row == _height || curCell.Column  < 0 || curCell.Column == _width;
         }
     }
 }

@@ -2,21 +2,52 @@ package com.company;
 
 public class Solution {
     public int rob(int[] nums) {
-        int[] dp = new int[nums.length + 2];
-        dp[0] = nums[0];
-        dp[1] = Math.max(nums[0], nums[1]);
+        if (nums.length == 1)
+            return nums[0];
 
+        int max1, max2;
+        max1 = startFromFirstHouse(nums);
+        max2 = startFromSecondHouse(nums);
 
-        for (int i = 2; i < nums.length; i++) {
-            //идея: грабим только четные или нечетные?
+        return Math.max(max1, max2);
+    }
 
-            // todo: this is not correct should I change step to avoid robering nearby houses?
-            dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+    private int startFromFirstHouse(int[] nums) {
+        int[] houses = new int[nums.length - 1];
+        System.arraycopy(nums, 0, houses, 0, nums.length - 1);
+        if (houses.length == 1) return houses[0];
+
+        houses[1] = 0;
+
+        int[] dp = new int[houses.length + 1];
+        dp[0] = 0;
+        dp[1] = houses[0];
+
+        for (int i = 1; i < houses.length; i++)
+        {
+            dp[i + 1] = Math.max(houses[i] + dp[i - 1], dp[i]);
         }
 
-        //dp[dp.length - 2] = nums[0];
-        //dp[dp.length - 1] = Math.max(nums[0], nums[1]);
-
-        return 0;
+        return dp[houses.length];
     }
+
+    private int startFromSecondHouse(int[] nums) {
+        int[] houses = new int[nums.length - 1];
+        System.arraycopy(nums, 1, houses, 0, nums.length - 1);
+
+        if (houses.length == 1) return houses[0];
+
+        int[] dp = new int[houses.length + 1];
+        dp[0] = 0;
+        dp[1] = houses[0];
+
+        for (int i = 1; i < houses.length; i++)
+        {
+            dp[i + 1] = Math.max(houses[i] + dp[i - 1], dp[i]);
+        }
+
+        return dp[houses.length];
+    }
+
+
 }

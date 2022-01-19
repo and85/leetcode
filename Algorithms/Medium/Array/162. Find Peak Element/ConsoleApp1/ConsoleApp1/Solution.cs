@@ -10,26 +10,32 @@ namespace ConsoleApp1
     {
         public int FindPeakElement(int[] nums)
         {
-            return FindPeakElementRecursive(nums, 0, nums.Length - 1);
+            //return FindPeakElementRecursive(nums, 0, nums.Length - 1);
+            int l = 0, r = nums.Length - 1;
+
+            while (l < r)
+            {
+                int m = l + (r - l) / 2;
+
+                if (nums[m] > nums[m + 1])
+                    r = m;
+                else
+                    l = m + 1;
+            }
+
+            return l;
         }
 
         private int FindPeakElementRecursive(int[] nums, int left, int right)
         {
-            if (left == right)
-                return left;
-
-            int median = (right - left) / 2 + left;
-
-            int leftNeighbour = (median - 1 >= 0) ? nums[median - 1] : int.MinValue;
-            int rightNeighbour = (median + 1 < nums.Length) ? nums[median + 1] : int.MaxValue;
-
-            if (nums[median] > leftNeighbour && nums[median] > rightNeighbour)
-                return median;
-
-            if (median != left)
+            if (left == right) return left;
+            
+            int median = left + (right - left) / 2;            
+                        
+            if (nums[median] > nums[median + 1])
                 return FindPeakElementRecursive(nums, left, median);
-
-            return FindPeakElementRecursive(nums, median + 1 , nums.Length - 1);
+            
+            return FindPeakElementRecursive(nums, median + 1, right);                        
         }
     }
 }
