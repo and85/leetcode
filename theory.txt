@@ -1,1 +1,3 @@
 Rabin-Karp, how to implement rolling hash without overflow (mod)
+
+Moris three traversal
