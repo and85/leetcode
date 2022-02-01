@@ -13,7 +13,7 @@ public class SolutionTests
         var solution = new Solution();
 
         // act
-        int actual = solution.CountSubstrings(input);
+        int actual = solution.CountSubstrings_BruteForce(input);
 
         // assert
         Assert.Equal(expected, actual);
