@@ -14,14 +14,14 @@ namespace ConsoleApp1
 
             foreach (string str in strs)
             {
-                string sortedStr = GetSortedStr(str);
-                if (grouped.ContainsKey(sortedStr))
+                string key = GetKey(str);
+                if (grouped.ContainsKey(key))
                 {
-                    grouped[sortedStr].Add(str);
+                    grouped[key].Add(str);
                 }
                 else
                 {
-                    grouped.Add(sortedStr, new List<string>() { str });
+                    grouped.Add(key, new List<string>() { str });
                 }
             }
 
@@ -33,12 +33,23 @@ namespace ConsoleApp1
             return result;
         }
 
-        private string GetSortedStr(string str)
+        private string GetKey(string str)
         {
-            var array = str.ToCharArray();
-            Array.Sort(array);
+            var sb = new StringBuilder();
 
-            return new string(array);
+            int[] counts = new int[26];
+            foreach (var c in str)
+            {
+                counts[c - 'a']++;
+            }
+            
+            foreach (var i in counts)
+            {
+                sb.Append(i);
+                sb.Append('|');
+            }
+
+            return sb.ToString();
         }
     }
 }
