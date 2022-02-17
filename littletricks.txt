@@ -1,4 +1,4 @@
-0. Advantages of Java over C# for leetcoding: Java has PriorityQueue (easy to implement Heaps), Java has TreeMap (C# SortedDictionary is similar, but not quite the same). 
+0. Advantages of Java over C# for leetcoding: Java has TreeMap (C# SortedDictionary is similar, but not quite the same). 
 Python also doesn't contain TreeMap
 
 1. if we have an array of positive integers, and want to mark visited elements in place without extra space, 
