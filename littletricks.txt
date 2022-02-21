@@ -105,3 +105,4 @@ https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/sol
 26. In worst case some sorting algorithms can take O(n^2) time, to solve this problem we may want to randomly shuffle the array before sorting. Good was of shuffling is "Knuth" shuffle
 27. Knuth shuffle. Cool way to shuffle a deck of card in O(N) time. https://www.coursera.org/learn/algorithms-part1/lecture/12vcF/shuffling
 28. Sometimes it makes sense to use PriorityQueue over Array.Sort
+29. The easiest way to create a key which could be used in a hashset, is to create a string with a delimiter
