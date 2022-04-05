@@ -26,7 +26,7 @@ namespace ConsoleApp1.Tests
         [TestMethod()]
         public void FindRepeatedDnaSequencesTest2()
         {
-            // arrange
+            // arrangeAAAAAAAAAA
             string input = "AAAAAAAAAAA";
 
             // act

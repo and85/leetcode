@@ -10,6 +10,7 @@ namespace NUnitTestProject1
         {
         }
 
+        [TestCase("2326", 4)]
         [TestCase("12", 2)]
         [TestCase("226", 3)]
         [TestCase("0", 0)]

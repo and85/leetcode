@@ -17,7 +17,8 @@ namespace NUnitTestProject1
         [TestCase("abcde", "cdeab", true)]
         [TestCase("abcde", "deabc", true)]
         [TestCase("abcde", "eabcd", true)]
-        [TestCase("abcde", "abcde", true)]        
+        [TestCase("abcde", "abcde", true)]
+        [TestCase("bqqutquvbtgouklsayfvzewpnrbwfcdmwctusunasdbpbmhnvy", "wpnrbwfcdmwctusunasdbpbmhnvybqqutquvbtgouklsayfvze", true)]        
         public void Test1(string a, string b, bool expected)
         {
             // arrange

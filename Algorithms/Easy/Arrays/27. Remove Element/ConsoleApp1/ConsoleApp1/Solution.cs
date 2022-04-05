@@ -8,6 +8,24 @@ namespace ConsoleApp1
     {
         public int RemoveElement(int[] nums, int val)
         {
+            int r = 0, w = 0;
+            while (r < nums.Length)
+            {
+                if (nums[r] != val)
+                {
+                    nums[w] = nums[r];
+                    w++;
+                }
+
+                r++;
+            }
+
+            return w;
+            //return BruteForce(nums, val);
+        }
+
+        private static int BruteForce(int[] nums, int val)
+        {
             int duplicatesCounter = 0;
             for (int i = 0; i < nums.Length - duplicatesCounter; i++)
             {

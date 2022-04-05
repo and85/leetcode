@@ -6,7 +6,7 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        public IList<string> FindRepeatedDnaSequences(string s)
+        public IList<string> FindRepeatedDnaSequences_FirstAttempt(string s)
         {
             int n = 10;
             //var results = new List<string>();
@@ -38,6 +38,35 @@ namespace ConsoleApp1
             }
 
             return new List<string>(results);
+        }
+
+        public IList<string> FindRepeatedDnaSequences(string s)
+        {
+            var result = new List<string>();
+            var dict = new Dictionary<string, int>();
+            
+            for (int i = 0; i <= s.Length - 10; i++)
+            {
+                string sub = s.Substring(i, 10);
+
+                if (dict.ContainsKey(sub))
+                {
+                    dict[sub]++;
+                }
+                else
+                {
+                    dict.Add(sub, 1);
+                }
+
+            }
+
+            foreach (var d in dict)
+            {
+                if (d.Value > 1)
+                    result.Add(d.Key);
+            }
+
+            return result;
         }
     }
 }
