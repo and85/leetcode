@@ -6,7 +6,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            var solution = new Solution();
+            var solution = new Solution_attempt1();
             bool b = solution.IsPalindrome("A man, a plan, a canal: Panama");
             bool b2 = solution.IsPalindrome("0P");
         }

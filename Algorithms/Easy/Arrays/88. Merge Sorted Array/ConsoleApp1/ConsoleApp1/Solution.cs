@@ -8,6 +8,11 @@ namespace ConsoleApp1
     {
         public void Merge(int[] nums1, int m, int[] nums2, int n)
         {
+                        
+        }
+
+        public void Merge_Attempt1(int[] nums1, int m, int[] nums2, int n)
+        {
             int p = m + n - 1, i = m - 1, j = n - 1;
             
             while (i >= 0 || j >=0)

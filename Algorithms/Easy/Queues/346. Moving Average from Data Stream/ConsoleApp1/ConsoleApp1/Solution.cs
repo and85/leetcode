@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1
 {
-    public class MovingAverage
+    public class MovingAverage_Attempt1
     {
         private int _sum = 0;
         private int _size;

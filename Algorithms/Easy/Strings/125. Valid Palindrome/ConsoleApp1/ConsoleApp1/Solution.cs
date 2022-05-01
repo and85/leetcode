@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace ConsoleApp1
@@ -9,24 +8,28 @@ namespace ConsoleApp1
     {
         public bool IsPalindrome(string s)
         {
-            if (string.IsNullOrWhiteSpace(s))
-                return true;
+            int l = 0, r = s.Length - 1;
 
-            s = string.Join("", s.ToCharArray()
-                .Where(c => Char.IsLetterOrDigit(c))
-                .Select(c => c.ToString().ToLower()));
-
-            if (s.Length == 1)
-                return true;
-
-            int i = 0, j = s.Length - 1;
-            while (i < j)
+            while (l < r)
             {
-                if (s[i]!= s[j])
+                if (char.ToLower(s[l]) == char.ToLower(s[r]))
+                {
+                    l++;
+                    r--;
+                    continue;
+                }
+                else if (!char.IsLetterOrDigit(s[l]))
+                {
+                    l++;
+                }
+                else if (!char.IsLetterOrDigit(s[r]))
+                {
+                    r--;
+                }
+                else
+                {
                     return false;
-                
-                i++;
-                j--;
+                }
             }
 
             return true;

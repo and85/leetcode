@@ -6,44 +6,37 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        Dictionary<Node, Node> _clones = new Dictionary<Node, Node>();
-
         public Node CopyRandomList(Node head)
         {
-            if (head == null)
-                return null;
-
-            Node cloneDummyHead = new Node(0);
+            if (head == null) return null;
+            
+            var dict = new Dictionary<Node, Node>();
+            
             Node curr = head;
-            Node currClone = cloneDummyHead;
+            Node copyhead = GetCopy(head, dict);                                    
 
             while (curr != null)
             {
-                Node clone = GetClone(curr);
-                clone.random = GetClone(curr.random);
-                currClone.next = clone;
-
-                currClone = currClone.next;
+                var copy = GetCopy(curr, dict);
+                copy.next = GetCopy(curr.next, dict);
+                copy.random = GetCopy(curr.random, dict);
+                
                 curr = curr.next;
             }
 
-            return cloneDummyHead.next;
+            return copyhead;
         }
 
-        private Node GetClone(Node node)
+        private Node GetCopy(Node key, Dictionary<Node, Node> dict)
         {
-            if (node == null)
-                return null;
+            if (key == null) return null;
 
-            if (_clones.ContainsKey(node))
+            if (!dict.ContainsKey(key))
             {
-                return _clones[node];
+                dict.Add(key, new Node(key.val));
             }
-            Node clone = new Node(node.val);
-            _clones.Add(node, clone);
-
-            return clone;
-
+            
+            return dict[key];
         }
     }
 }

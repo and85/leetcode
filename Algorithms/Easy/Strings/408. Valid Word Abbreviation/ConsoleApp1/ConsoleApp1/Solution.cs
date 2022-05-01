@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace ConsoleApp1
 {
@@ -9,30 +8,51 @@ namespace ConsoleApp1
     {
         public bool ValidWordAbbreviation(string word, string abbr)
         {
-            string pattern = GetRegexPattern(abbr);
-            var regex = new System.Text.RegularExpressions.Regex(pattern);
-            return regex.IsMatch(word);
+            int w = 0, a = 0;
+
+            while (w < word.Length && a < abbr.Length)
+            {
+                if (word[w] == abbr[a])
+                {
+                    w++;
+                    a++;
+                    continue;
+                }
+
+                if (char.IsDigit(abbr[a]))
+                {
+                    // leading zero
+                    if (abbr[a] == '0') return false;
+
+                    int number = GetNumber(abbr, a);                    
+                    w += number;
+                    a += number.ToString().Length;
+
+                    if (w >= word.Length) return false;
+                }
+                else
+                {
+                    return false;
+                }
+
+                w++;
+                a++;
+            }
+
+            return w == word.Length && a == abbr.Length;
         }
 
-        private string GetRegexPattern(string abbr)
+        private int GetNumber(string abbr, int a)
         {
-            string numbers = "[0-9]+";
-            var regex = new System.Text.RegularExpressions.Regex(numbers);
-            var matches = regex.Matches(abbr);
-            var evaluator = new System.Text.RegularExpressions.MatchEvaluator(EntryNumber);
+            StringBuilder sb = new StringBuilder();
 
-            return "^" + regex.Replace(abbr, evaluator) + "$";
-        }
+            while (a < abbr.Length && char.IsDigit(abbr[a]))
+            {
+                sb.Append(abbr[a]);
+                a++;
+            }
 
-        private string EntryNumber(System.Text.RegularExpressions.Match match)
-        {
-            // expected number of letters
-            string matchStr = match.ToString();
-
-            if (matchStr.StartsWith("0"))
-                return "[^a-z]";
-
-            return "[a-z]{" + matchStr + "}";
+            return int.Parse(sb.ToString());
         }
     }
 }

@@ -10,6 +10,7 @@ namespace ConsoleApp1
     {
         public Dictionary<int, int> Nums;
 
+        /* Attempt1
         public SparseVector(int[] nums)
         {
             Nums = new Dictionary<int, int>();
@@ -34,6 +35,16 @@ namespace ConsoleApp1
             }
 
             return sum;
+        }
+        */
+
+        public SparseVector(int[] nums)
+        { 
+        }
+
+        public int DotProduct(SparseVector vec)
+        {
+            return 0;
         }
     }
 

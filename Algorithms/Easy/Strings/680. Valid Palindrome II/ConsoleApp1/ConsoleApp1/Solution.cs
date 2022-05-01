@@ -9,6 +9,49 @@ namespace ConsoleApp1
     {
         public bool ValidPalindrome(string s)
         {
+            int i = 0, j = s.Length - 1;            
+
+            while (i < j)
+            {
+                if (s[i] == s[j])
+                {
+                    i++;
+                    j--;
+                    continue;
+                }
+                
+
+                if (s[i + 1] == s[j])
+                {
+                    if (IsPalindrome(s, i + 1, j)) return true;
+                }
+
+                if (s[j - 1] == s[i])
+                {
+                    if (IsPalindrome(s, i, j - 1)) return true;
+                }
+
+                return false;                
+
+            }
+
+            return true;
+        }
+
+        private bool IsPalindrome(string s, int i, int j)
+        {
+            while (i < j)
+            {
+                if (s[i] != s[j]) return false;
+                i++;
+                j--;
+            }
+
+            return true;
+        }
+
+        public bool ValidPalindrome_Attempt1(string s)
+        {
             if (string.IsNullOrWhiteSpace(s))
                 return true;
 

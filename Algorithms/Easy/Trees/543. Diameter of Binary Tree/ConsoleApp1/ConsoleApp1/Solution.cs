@@ -6,33 +6,27 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        private int _diameter = 0;
+        private int _maxDiameter = 0;
 
         public int DiameterOfBinaryTree(TreeNode root)
         {
-            Traverse(root);
+            MaxPath(root);
+            return _maxDiameter;
 
-            return _diameter;
         }
 
-        void Traverse(TreeNode root)
+        private int MaxPath(TreeNode root)
         {
-            if (root == null) return;
+            if (root == null) return 0;
 
-            int d1 = GetDistance(0, root.left);
-            int d2 = GetDistance(0, root.right);
+            int leftPath = MaxPath(root.left);
+            int rightPath = MaxPath(root.right);
+            _maxDiameter = Math.Max(_maxDiameter, leftPath + rightPath);
+            
 
-            _diameter = Math.Max(_diameter, d1 + d2);
-
-            Traverse(root.left);
-            Traverse(root.right);
+            return Math.Max(leftPath, rightPath) + 1;
         }
 
-        private int GetDistance(int d, TreeNode node)
-        {
-            if (node == null) return d;
-
-            return Math.Max(GetDistance(d + 1, node.left), GetDistance(d + 1, node.right));
-        }
+        
     }
 }
