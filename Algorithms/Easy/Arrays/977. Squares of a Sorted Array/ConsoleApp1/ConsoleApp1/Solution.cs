@@ -8,6 +8,50 @@ namespace ConsoleApp1
     {
         public int[] SortedSquares(int[] nums)
         {
+            int[] result = new int[nums.Length];
+
+            int p = FindFirstNonNegative(nums);
+            int pn = p - 1;
+            int r = 0;
+
+            while (p < nums.Length || pn >= 0)
+            {
+                if (pn < 0)
+                {
+                    result[r] = (int)Math.Pow(nums[p], 2);
+                    p++;
+                    continue;
+                }
+
+                if (p >= nums.Length)
+                {
+                    result[r] = (int)Math.Pow(nums[pn], 2);
+                    pn--;
+                    continue;
+                }
+
+                int pns = (int)Math.Pow(nums[pn], 2);
+                int ps = (int)Math.Pow(nums[p], 2);
+                if (pns < ps)
+                {
+                    result[r] = pns;
+                    pn--;
+                }
+                else
+                {
+                    result[r] = ps;
+                    p++;
+
+                }
+
+                r++;
+            }
+
+            return result;
+        }
+
+        public int[] SortedSquares_Attempt1(int[] nums)
+        {
             //return Method1(nums);
             int[] res = new int[nums.Length];
 

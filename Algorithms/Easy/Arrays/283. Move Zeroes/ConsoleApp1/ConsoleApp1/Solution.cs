@@ -8,6 +8,28 @@ namespace ConsoleApp1
     {
         public void MoveZeroes(int[] nums)
         {
+            int w = 0;
+
+            for (int r = 0; r < nums.Length; r++)
+            {
+                if (nums[r] == 0)
+                {                    
+                    continue;
+                }
+                else
+                {
+                    if (r != w)
+                    {
+                        Swap(nums, r, w);
+                    }
+
+                    w++;   
+                }
+            }
+        }
+
+        public void MoveZeroes_Attempt1(int[] nums)
+        {
             
 
             //Approach1(nums);            

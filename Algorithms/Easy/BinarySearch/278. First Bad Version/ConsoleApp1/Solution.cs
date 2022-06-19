@@ -11,16 +11,17 @@ namespace ConsoleApp1
         public int FirstBadVersion(int n)
         {
             // g g g b b b b b b b b b b b 
+            // b g g g g g g g g 
 
-            int l = 1, r = n, m = -1;
+            int l = 1, r = n;
 
             while (l <= r)
             {
-                m = l + (r - l) / 2;
+                int m = l + (r - l) / 2;
 
                 if (IsBadVersion(m))
                 {
-                    r = m - 1;                    
+                    r = m - 1;
                 }
                 else
                 {
@@ -29,6 +30,7 @@ namespace ConsoleApp1
             }
 
             return l;
+                    
         }
     }
 }

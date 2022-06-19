@@ -1,0 +1,42 @@
+using System.Text;
+
+public class Solution {
+    public IList<IList<string>> GroupStrings(string[] strings) {
+        var dict = new Dictionary<string, List<string>>();
+        foreach (var s in strings)
+        {
+            var key = GetKey(s);
+
+            if (!dict.ContainsKey(key))
+            {
+                dict.Add(key, new List<string> {s});
+            }
+            else
+            {
+                dict[key].Add(s);
+            }
+        }
+
+        var result = new List<IList<string>>();
+        foreach (var d in dict)
+        {
+            result.Add(d.Value);
+        }
+
+        return result;
+    }
+
+    private string GetKey(string s)
+    {
+        char prev = '0';
+        var sb = new StringBuilder();
+        foreach (var ch in s)
+        {
+            sb.Append(ch - prev);
+            sb.Append('|');
+            prev = ch;
+        }
+
+        return sb.ToString();
+    }
+}

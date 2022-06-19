@@ -11,7 +11,7 @@ public class Solution {
         {
             result++;
             total += item;
-            if (total <= arr.Length / 2)
+            if (total >= arr.Length / 2)
                 break;
         }
 
