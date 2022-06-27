@@ -45,5 +45,22 @@ namespace ConsoleApp1.Tests
             Assert.AreEqual(4, a5);
             Assert.AreEqual(4, a6);
         }
+
+        [TestMethod()]
+        public void MergeTwoListsTest2()
+        {
+            // arrange
+            var l1 = new ListNode(1);
+            
+            var l2 = new ListNode(2);
+            
+
+            // act
+            var solution = new Solution();
+            var actual = solution.MergeTwoLists(l1, l2);
+
+            // assert    
+
+        }
     }
 }

@@ -106,3 +106,7 @@ https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/sol
 27. Knuth shuffle. Cool way to shuffle a deck of card in O(N) time. https://www.coursera.org/learn/algorithms-part1/lecture/12vcF/shuffling
 28. Sometimes it makes sense to use PriorityQueue over Array.Sort
 29. The easiest way to create a key which could be used in a hashset, is to create a string with a delimiter
+30 C# user 2ns compliment method to store negative numbers in binary format 
+https://www.geeksforgeeks.org/representation-of-negative-binary-numbers/
+https://www.geeksforgeeks.org/find-ones-complement-integer/
+https://www.geeksforgeeks.org/efficient-method-2s-complement-binary-string/

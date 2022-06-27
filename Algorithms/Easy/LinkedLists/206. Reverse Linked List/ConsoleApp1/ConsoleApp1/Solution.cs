@@ -21,6 +21,42 @@ namespace ConsoleApp1
     {
         public ListNode ReverseList(ListNode head)
         {
+            //return Iterative(head);
+
+
+            return Recursive(head, null);
+        }
+
+        private ListNode Recursive(ListNode head, ListNode prev)
+        {
+            if (head == null) return prev;
+            
+            
+            ListNode next = head.next;
+            head.next = prev;
+            prev = head;
+
+            return Recursive(next, prev);            
+        }
+
+        private static ListNode Iterative(ListNode head)
+        {
+            ListNode prev = null, curr = head, next;
+
+            while (curr != null)
+            {
+                next = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = next;
+
+            }
+
+            return prev;
+        }
+
+        public ListNode ReverseList_Attempt1(ListNode head)
+        {
             var listNodeStack = new Stack<int>();
             while (head != null)
             {

@@ -21,6 +21,35 @@ namespace ConsoleApp1
     {
         public ListNode RemoveNthFromEnd(ListNode head, int n)
         {
+            
+            int positionToDelete = GetListLenght(head) - n;
+
+            var senitelHead = new ListNode(0);
+            senitelHead.next = head;
+            var cur = senitelHead;
+            int curPos = 0;
+
+            while (curPos <= positionToDelete)
+            {
+                if (curPos == positionToDelete)
+                {                    
+                    cur.next = cur.next?.next;
+                    break;
+                }
+                else
+                {
+                    cur = cur.next;
+                    
+                }
+                curPos++;
+            }
+            
+
+            return senitelHead.next;
+        }
+
+        public ListNode RemoveNthFromEnd_Attempt1(ListNode head, int n)
+        {
             if (head == null)
                 return null;
 
