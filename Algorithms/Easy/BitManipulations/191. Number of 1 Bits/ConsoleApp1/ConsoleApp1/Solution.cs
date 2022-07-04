@@ -8,17 +8,14 @@ namespace ConsoleApp1
     {
         public int HammingWeight(uint n)
         {
-            byte sum = 0;
-            for (int i = 0; i < 32; i++)
-                sum += IsBitSet(n, i);
-            
-            return sum;
-        }
+            int weight = 0;
+            for (int i = 0; i < sizeof(uint) * 8; i++)
+            {
+                weight += (int)(n & 1);
+                n >>= 1;
+            }
 
-        private byte IsBitSet(uint num, int bitIndex)
-        {
-            bool isBitSet = (num & (1 << bitIndex)) > 0;
-            return Convert.ToByte(isBitSet);
+            return weight;
         }
     }
 }

@@ -18,6 +18,7 @@ namespace ConsoleApp1.Tests
         [DataRow(" ", 1)]
         [DataRow("au", 2)]
         [DataRow("jbpnbwwd", 4)]
+        [DataRow("dvdf", 3)]
         public void LengthOfLongestSubstringTest(string input, int expected)
         {
             // arrange

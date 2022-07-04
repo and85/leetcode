@@ -8,45 +8,37 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        public class BFS
-        {
-            List<IList<Node>> _levels = new List<IList<Node>>();
-
-            public void Helper(Node node, int level)
-            {
-                if (_levels.Count == level)
-                    _levels.Add(new List<Node>());
-
-                _levels[level].Add(node);
-
-                if (node.left != null)
-                    Helper(node.left, level + 1);
-                if (node.right != null)
-                    Helper(node.right, level + 1);
-            }
-
-            public IList<IList<Node>> LevelOrder(Node root)
-            {
-                if (root == null)
-                    return _levels;
-
-                Helper(root, 0);
-
-                return _levels;
-            }
-        }
-
         public Node Connect(Node root)
         {
-            var bfs = new BFS();
-            var levels = bfs.LevelOrder(root);
-            foreach (var level in levels)
-            {
-                for (int i = 0; i < level.Count - 1; i++)
-                {
-                    level[i].next = level[i + 1];
-                }
+            if (root == null) return root;
 
+            var queue = new Queue<Node>();
+            queue.Enqueue(root);
+
+            while (queue.Count > 0)
+            {
+                int levelSize = queue.Count;
+
+                Node prev = null;
+                for (int i = 0; i < levelSize; i++)
+                {
+                    var node = queue.Dequeue();                    
+                    
+                    if (prev != null)
+                    {
+                        prev.next = node;
+                    }
+
+                    prev = node;
+                    if (node.left != null)
+                    {
+                        queue.Enqueue(node.left);
+                    }
+                    if (node.right != null)
+                    {
+                        queue.Enqueue(node.right);
+                    }
+                }
             }
 
             return root;

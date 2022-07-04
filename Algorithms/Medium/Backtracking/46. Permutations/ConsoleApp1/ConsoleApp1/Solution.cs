@@ -7,36 +7,31 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        private int _lenght;
-        private int[] _nums;
-
         private IList<IList<int>> _result = new List<IList<int>>();
+        private IList<int> _current = new List<int>();
 
         public IList<IList<int>> Permute(int[] nums)
         {
-            _nums = nums;
-            _lenght = nums.Length;
-            
-            Backtrack(0, new List<int>());
-
+            Backtrack(nums);
             return _result;
         }
 
-        private void Backtrack(int first, List<int> currentSolution)
+        private void Backtrack(int[] nums)
         {
-            if (currentSolution.Count == _lenght)
-                _result.Add(new List<int>(currentSolution));
-
-            for (int i = 0; i < _lenght; i++)
+            if (_current.Count == nums.Length)
             {
-                if (currentSolution.Contains(_nums[i]))
-                    continue;
+                _result.Add(_current.ToList());
+                return;
+            }
 
-                currentSolution.Add(_nums[i]);
-
-                Backtrack(i, currentSolution);
-
-                currentSolution.RemoveAt(currentSolution.Count - 1);
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (!_current.Contains(nums[i]))
+                {
+                    _current.Add(nums[i]);
+                    Backtrack(nums);
+                    _current.Remove(nums[i]);
+                }                               
             }
         }
     }

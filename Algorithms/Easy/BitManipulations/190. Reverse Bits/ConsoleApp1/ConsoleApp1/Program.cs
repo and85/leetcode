@@ -10,6 +10,10 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            var s = new Solution();
+            Console.WriteLine(s.reverseBits(43261596));
+
+            Console.ReadLine();
         }
     }
 }

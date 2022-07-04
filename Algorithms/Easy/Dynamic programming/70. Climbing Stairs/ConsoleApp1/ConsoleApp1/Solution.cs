@@ -11,6 +11,18 @@ namespace ConsoleApp1
         private Dictionary<int, int> _memoization = new Dictionary<int, int>();
 
         public int ClimbStairs(int n)
+        {                        
+            if (n <= 2) return n;
+
+            if (_memoization.ContainsKey(n)) return _memoization[n];
+
+            int steps = ClimbStairs(n - 1) + ClimbStairs(n - 2);
+            _memoization.Add(n, steps);
+
+            return steps;
+        }
+
+        public int ClimbStairs_Attempt1(int n)
         {
             if (_memoization.ContainsKey(n))
                 return _memoization[n];

@@ -10,6 +10,10 @@ namespace ConsoleApp1
     {
         public int SingleNumber(int[] nums)
         {
+            return nums.Aggregate((x, y) => x ^ y);
+        }
+        public int SingleNumber_Attempt1(int[] nums)
+        {
             //for (int i = 1; i < nums.Length; i++)
             //{
             //    nums[0] ^= nums[i];

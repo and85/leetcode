@@ -8,47 +8,33 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        public uint everseBits(uint n)
+        public uint reverseBits(uint n)
         {
-            int i = 0, j = 31;
-            uint leftBit, rightBit;
-            while (i < j)
-            {
-                leftBit = GetBit(n, i);
-                rightBit = GetBit(n, j);
-                n = ReplaceBit(n, j, leftBit);
-                n = ReplaceBit(n, i, rightBit);
+            uint result = 0;
+            for (int i = 0; i < 32; i++)
+            {                              
+                uint rightBit = GetRightBit(n);
 
-                i++;
-                j--;
-            }
+                result <<= 1;
 
-            return n;
+                if (rightBit > 0)
+                {
+                    // set the most right bit
+                    result |= 1;
+                }                                
+                
+                n >>= 1;                
+            }            
+
+            return result;
         }
 
-        private uint ReplaceBit(uint n, int index, uint bit)
+        public uint GetRightBit(uint x)
         {
-            if (bit == 1)
-                n = SetBit(n, index);
-            else
-                n = ClearBit(n, index);
-            return n;
+            uint mask = 1;
+            return x & mask;
         }
 
-        public uint GetBit(uint num, int bitIndex)
-        {
-            return (uint)(((num & (1 << bitIndex)) > 0) ? 1 : 0);
-        }
 
-        public uint SetBit(uint num, int bitIndex)
-        {
-            return num | (uint)(1 << bitIndex);
-        }
-
-        public uint ClearBit(uint num, int bitIndex)
-        {
-            uint mask = (uint)~(1 << bitIndex);
-            return num & mask;
-        }
     }
 }
