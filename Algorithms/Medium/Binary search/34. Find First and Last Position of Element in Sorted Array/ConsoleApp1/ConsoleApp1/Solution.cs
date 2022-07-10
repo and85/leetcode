@@ -10,48 +10,37 @@ namespace ConsoleApp1
     {
         public int[] SearchRange(int[] nums, int target)
         {
-            if (nums == null || nums.Length == 0)
-                return new int[] { -1, -1};
-
-            int left = 0, right = nums.Length - 1;
-            while (left + 1 < right)
+            // find left position
+            int left = 0;
+            int right = nums.Length;
+            while (left < right)
             {
                 int mid = left + (right - left) / 2;
-                if (nums[mid] < target)
-                {
-                    left = mid;
-                }
-                else
-                {
+                if (nums[mid] >= target)
                     right = mid;
-                }
+                else
+                    left = mid + 1;
             }
+            if (left >= nums.Length || nums[left] != target) return new int[] { -1, -1 };
 
-            // Post-processing:
-            // End Condition: left + 1 == right
-            if (nums[left] == target)
+            int left_pos = left;
+
+            //find right position
+            left = left_pos;
+            right = nums.Length;
+            while (left < right)
             {
-                return GetMatchEnd(nums, left);
+                int mid = left + (right - left) / 2;
+                if (nums[mid] > target)
+                    right = mid;
+                else
+                    left = mid + 1;
             }
+            int right_pos = left - 1;
+            return new int[] { left_pos, right_pos };
 
-            if (nums[right] == target)
-            {
-                return GetMatchEnd(nums, right);
-            }
-
-            return new int[]{ -1, -1};
         }
 
-        private int[] GetMatchEnd(int[] nums, int start)
-        {
-            int end = start;
-            for (int i = start + 1; i < nums.Length; i++)
-            {
-                if (nums[i] == nums[start])
-                    end = i;
-            }
-
-            return new int[] { start, end };
-        }
+        
     }
 }

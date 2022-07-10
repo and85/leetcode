@@ -10,6 +10,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            var s = new Solution();
+            s.IsHappy(19);
         }
     }
 }

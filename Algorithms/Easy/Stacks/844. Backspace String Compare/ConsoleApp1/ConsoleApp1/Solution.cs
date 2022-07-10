@@ -6,36 +6,36 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        public bool BackspaceCompare(string S, string T)
+        public bool BackspaceCompare(string s, string t)
         {
-            var sStack = new Stack<char>();
-            var tStack = new Stack<char>();
-            
-            PopulateStack(S, sStack);
-            PopulateStack(T, tStack);
+            int max = Math.Max(s.Length, t.Length);
 
-            if (sStack.Count != tStack.Count)
-                return false;
+            var sB = new StringBuilder();
+            var tB = new StringBuilder();
 
-            while (sStack.Count != 0)
+            for (int i = 0; i < max; i++)
             {
-                if (sStack.Pop() != tStack.Pop())
-                    return false;
+                EnterSymbol(s, sB, i);
+                EnterSymbol(t, tB, i);
             }
 
-            sStack.ToString
-
-            return true;
+            return sB.Equals(tB);
         }
 
-        private static void PopulateStack(string str, Stack<char> stack)
+        private void EnterSymbol(string s, StringBuilder sB, int i)
         {
-            for (int i = 0; i < str.Length; i++)
+            if (i >= s.Length) return;
+
+            if (s[i] != '#')
             {
-                if (str[i] != '#')
-                    stack.Push(str[i]);
-                else
-                    stack.TryPop(out char _);
+                sB.Append(s[i]);
+            }
+            else
+            {
+                if (sB.Length > 0)
+                {
+                    sB.Remove(sB.Length - 1, 1);
+                }
             }
         }
     }

@@ -6,7 +6,9 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var s = new Solution();
+            Console.WriteLine(s.BackspaceCompare("ab#c", "ad#c"));
+
         }
     }
 }

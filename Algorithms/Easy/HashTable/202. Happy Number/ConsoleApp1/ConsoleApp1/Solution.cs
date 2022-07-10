@@ -10,38 +10,39 @@ namespace ConsoleApp1
     {
         public bool IsHappy(int n)
         {
-            var existingSums = new HashSet<int>();
-
-            while (true)
+            var seenNumbers = new HashSet<int>();
+            seenNumbers.Add(n);
+            
+            while (n != 1)
             {
-                int sum = 0;
-                foreach (int digit in GetDigits(n))
-                {
-                    sum +=  (int)Math.Pow(digit, 2);
-                }
-                
-                if (sum == 1)
-                    return true;
+                n = GetNextNumber(n);
 
-                if (existingSums.Contains(sum))
+                if (seenNumbers.Contains(n))
+                {
                     return false;
+                } 
                 else
                 {
-                    n = sum;
-                    existingSums.Add(sum);
+                    seenNumbers.Add(n);
                 }
-                
+                    
             }
+
+            return true;
         }
 
-        private IEnumerable<int> GetDigits(int n)
+        private int GetNextNumber(int n)
         {
-            do
-            {
-                yield return n % 10;
-                n = n / 10;
+            int res = 0;
 
-            } while (n != 0);
+            while (n > 0)
+            {
+                int digit = n % 10;
+                res += digit * digit;
+                n /= 10;
+            }
+
+            return res;
         }
     }
 }
