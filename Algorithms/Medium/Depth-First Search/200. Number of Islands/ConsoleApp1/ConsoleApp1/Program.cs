@@ -15,7 +15,7 @@ namespace ConsoleApp1
             };
 
 
-            var solution = new Solution();
+            var solution = new Solution_Attempt1();
 
             // act
             int actual = solution.NumIslands(grid);

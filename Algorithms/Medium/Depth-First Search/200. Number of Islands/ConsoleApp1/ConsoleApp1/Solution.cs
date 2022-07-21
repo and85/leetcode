@@ -6,57 +6,45 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        private char[][] _grid;
-        private int _gridHeight;
-        private int _gridWidth;
-        private HashSet<Tuple<int, int>> _visitedCells;
+        private (int, int)[] _directions = new (int, int)[]
+        {
+            (1, 0),
+            (-1, 0),
+            (0, 1),
+            (0, -1)
+        };
 
         public int NumIslands(char[][] grid)
         {
-            if (grid.Length == 0)
-                return 0;
-
-            _grid = grid;
-            _gridHeight = grid.Length;
-            _gridWidth = grid[0].Length;
-            _visitedCells = new HashSet<Tuple<int, int>>();
-
-            int result = 0;
+            int islands = 0;
             for (int r = 0; r < grid.Length; r++)
-                for (int c = 0; c < _gridWidth; c++)
+            {
+                for (int c = 0; c < grid[r].Length; c++)
                 {
-                    var currCell = new Tuple<int, int>(r, c);
-                    if (grid[r][c] == '1' && 
-                        !_visitedCells.Contains(currCell))
+                    if (grid[r][c] == '1')
                     {
-                        result++;
-                        ExploreIslandByDfs(currCell);
+                        Dfs(r, c, grid);
+                        islands++;
                     }
                 }
+            }
 
-            return result;
+            return islands;
         }
 
-        private void ExploreIslandByDfs(Tuple<int, int> currCell)
+        private void Dfs(int r, int c, char[][] grid)
         {
-            if (IsOutOfBorders(currCell) ||
-                    _grid[currCell.Item1][currCell.Item2] == '0' ||
-                    _visitedCells.Contains(currCell))
+            if (r < 0 || r == grid.Length || c < 0 || c == grid[0].Length || grid[r][c] == '0')
+            {
                 return;
+            }
+            
+            grid[r][c] = '0';
 
-            _visitedCells.Add(currCell);
-            ExploreIslandByDfs(new Tuple<int, int>(currCell.Item1 - 1, currCell.Item2));
-            ExploreIslandByDfs(new Tuple<int, int>(currCell.Item1 + 1, currCell.Item2));
-            ExploreIslandByDfs(new Tuple<int, int>(currCell.Item1, currCell.Item2 - 1));
-            ExploreIslandByDfs(new Tuple<int, int>(currCell.Item1, currCell.Item2 + 1));
-        }
-
-        private bool IsOutOfBorders(Tuple<int, int> currCell)
-        {
-            return currCell.Item1 < 0 || 
-                currCell.Item1 == _gridHeight ||
-                currCell.Item2 < 0 || 
-                currCell.Item2 == _gridWidth;
+            foreach (var d in _directions)
+            {
+                Dfs(r + d.Item1, c + d.Item2, grid);
+            }
         }
     }
 }
