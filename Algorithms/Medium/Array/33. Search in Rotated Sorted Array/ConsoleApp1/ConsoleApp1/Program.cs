@@ -6,7 +6,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var solution = new Solution();
+            solution.Search(new int[] { 4, 5, 6, 7, 0, 1, 2 }, 0 );
         }
     }
 }
