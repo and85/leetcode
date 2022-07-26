@@ -2,9 +2,7 @@ public class NumberContainers
 {
 
     private Dictionary<int, int> _indexes = new Dictionary<int, int>();
-    private Dictionary<int, HashSet<int>> _numbers = new Dictionary<int, HashSet<int>>();
-
-    private Dictionary<int, int> _minIndexes = new Dictionary<int, int>();
+    private Dictionary<int, SortedSet<int>> _numbers = new Dictionary<int, SortedSet<int>>();    
 
     public NumberContainers() 
     {
@@ -26,8 +24,7 @@ public class NumberContainers
             
             _indexes[index] = number;            
 
-            SetNumber(index, number);
-            _minIndexes[oldNumber] = FindMinIndex(oldNumber);
+            SetNumber(index, number);            
         }
     }
 
@@ -35,56 +32,23 @@ public class NumberContainers
     {
         if (!_numbers.ContainsKey(number))
         {
-            _numbers.Add(number, new HashSet<int>());
+            _numbers.Add(number, new SortedSet<int>());
         }
 
         if (!_numbers[number].Contains(index))
         {
             _numbers[number].Add(index);
 
-            if (!_minIndexes.ContainsKey(number))
-            {
-                _minIndexes.Add(number, index);
-            }
-            else
-            {
-                int minIndex = _minIndexes[number];
-                if (minIndex > index)
-                {
-                    _minIndexes[number] = index;
-                }
-            }
+            
         }
     }
 
     public int Find(int number)
     {
-        if (!_minIndexes.ContainsKey(number))
-        {
-            if (_numbers.ContainsKey(number))
-            {
-                _minIndexes.Add(number, FindMinIndex(number));                
-            }
-            else
-            {
-                return -1;
-            }
-        }
+        if (!_numbers.ContainsKey(number)) return -1;
 
-        return _minIndexes[number];
+        return _numbers[number].FirstOrDefault() > 0 ? _numbers[number].FirstOrDefault() : -1;
     }
 
-    private int FindMinIndex(int number)
-    {
-        int min = int.MaxValue;
-
-        if (!_numbers.ContainsKey(number) || _numbers[number].Count == 0) return -1;
-
-        foreach (var v in _numbers[number])
-        {
-            min = Math.Min(v, min);
-        }
-
-        return min;
-    }
+    
 }
