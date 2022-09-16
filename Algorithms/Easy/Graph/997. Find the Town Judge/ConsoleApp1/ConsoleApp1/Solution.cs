@@ -8,78 +8,35 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        internal class Person
+        private class Trust
         {
-            internal Person(int label)
+            public int TrustCounter { get; set; }
+            public int TrustedCounter { get; set; }
+        }
+        public int FindJudge(int n, int[][] trust)
+        {
+            if (n == 1) return 1;
+            
+            var dict = new Dictionary<int, Trust>();
+            
+            foreach (var pair in trust)
             {
-                Label = label;
+                var tr = pair[0];
+                var t = pair[1];
+
+                if (!dict.ContainsKey(tr)) 
+                    dict.Add(tr, new Trust());
+                
+                if (!dict.ContainsKey(t))
+                    dict.Add(t, new Trust());
+
+                dict[t].TrustedCounter++;
+                dict[tr].TrustCounter++;
             }
 
-            internal int Label { get; set; }
-            internal List<int> WhomITtust { get; set; } = new List<int>();
 
-            internal List<int> WhoTrustsMe { get; set; } = new List<int>();
-        }
-
-        public int FindJudge(int N, int[][] trust)
-        {
-            if (N == 1)
-                return 1;
-
-            var allPersons = new Dictionary<int, Person>();
-
-            foreach (int[] t in trust)
-            {
-                SetWhomITrust(allPersons, t);
-                SetWhoTrustsMe(allPersons, t);
-            }
-
-            return FindJudge(allPersons, N);
-        }
-
-        private void SetWhomITrust(Dictionary<int, Person> allPersons, int[] t)
-        {
-            int personLabel = t[0];
-            int whomITrust = t[1];
-
-            Person person = GetPerson(allPersons, personLabel);
-            person.WhomITtust.Add(whomITrust);
-        }
-
-        private Person GetPerson(Dictionary<int, Person> allPersons, int personLabel)
-        {
-            Person person;
-            if (allPersons.ContainsKey(personLabel))
-            {
-                person = allPersons[personLabel];
-            }
-            else
-            {
-                person = new Person(personLabel);
-                allPersons.Add(personLabel, person);
-            }
-
-            return person;
-        }
-
-        private void SetWhoTrustsMe(Dictionary<int, Person> allPersons, int[] t)
-        {
-            int personLabel = t[1];
-            int whoTrustsMe = t[0];
-
-            Person person = GetPerson(allPersons, personLabel);
-            person.WhoTrustsMe.Add(whoTrustsMe);
-        }
-
-        private int FindJudge(Dictionary<int, Person> allPersons, int n)
-        {
-            foreach (var person in allPersons)
-            {
-                if (person.Value.WhomITtust.Count == 0 && person.Value.WhoTrustsMe.Count == n - 1)
-                    return person.Value.Label;
-            }
-
-            return -1;
+            var judge = dict.SingleOrDefault(p => p.Value.TrustCounter == 0 && p.Value.TrustedCounter == n - 1);            
+            return judge.Key != 0 ? judge.Key : -1;
         }
     }
 }
