@@ -8,67 +8,41 @@ namespace ConsoleApp1
     {
         public void NextPermutation(int[] nums)
         {
-            int decreasingIndex = FindDecreasingIndex(nums);
-            if (decreasingIndex >= 0)
+            int i;
+            for (i = nums.Length - 1; i >= 1; i--)
             {
-
-                int nextGreaterIndex = NextGreaterIndex(nums, decreasingIndex);
-                    
-                Swap(nums, decreasingIndex, nextGreaterIndex);
-                Reverse(nums, decreasingIndex + 1);
-            }
-            else
-            {
-                Array.Sort(nums);
-            }
-        }
-
-        private int NextGreaterIndex(int[] nums, int decreasingIndex)
-        {
-            int min = int.MaxValue;
-            int minIndex = -1;
-            for (int i = decreasingIndex + 1; i < nums.Length; i++)
-            {
-                if (nums[i] > nums[decreasingIndex])
-                {
-                    if (nums[i] <= min)
-                    {
-                        min = nums[i];
-                        minIndex = i;
-                    }
+                if (nums[i - 1] < nums[i])
+                {                    
+                    break;
                 }
             }
 
-            return minIndex;
-        }
+            int decreasingPoint = i - 1;
 
-        private int FindDecreasingIndex(int[] nums)
-        {
-            for (int i = nums.Length - 1; i > 0; i--)
-            {
-                if (nums[i] > nums[i - 1])
-                    return i - 1;
+            if (decreasingPoint >= 0)
+            { 
+
+                int minIndex = decreasingPoint, minValue = int.MaxValue;
+                for (int j = i; j < nums.Length; j++)
+                {
+                    if (nums[j] < minValue && nums[j] > nums[decreasingPoint])
+                    {
+                        minValue = nums[j];
+                        minIndex = j;
+                    }
+                }
+            
+                Swap(nums, decreasingPoint, minIndex);
             }
 
-            return -1;
-        }
-
-        private void Reverse(int[] nums, int start)
-        {
-            int i = start, j = nums.Length - 1;
-            while (i < j)
-            {
-                Swap(nums, i, j);
-                i++;
-                j--;
-            }
+            Array.Sort(nums, i, nums.Length - i);            
         }
 
         private void Swap(int[] nums, int i, int j)
         {
-            int temp = nums[i];
+            int t = nums[i];
             nums[i] = nums[j];
-            nums[j] = temp;
+            nums[j] = t;
         }
     }
 }
