@@ -12,7 +12,8 @@ namespace ConsoleApp1
 
         public int ClimbStairs(int n)
         {                        
-            if (n <= 2) return n;
+            /*
+			if (n <= 2) return n;
 
             if (_memoization.ContainsKey(n)) return _memoization[n];
 
@@ -20,6 +21,33 @@ namespace ConsoleApp1
             _memoization.Add(n, steps);
 
             return steps;
+			*/
+			
+			
+			/* dynamic programming
+			if (n <= 2) return n;
+
+			dp[0] = 1;
+			var dp = new int[n];
+			dp[1] = 2;
+
+			for (int i = 2; i < n; i++)
+			{
+				dp[i] = dp[i - 1] + dp[i - 2];
+			}
+
+			return dp[dp.Length - 1];
+			*/
+			int prev = 1, cur = 2, next;
+
+			for (int i = 3; i <= n; i++)
+			{
+				next = cur + prev;
+				prev = cur;
+				cur = next;
+			}
+
+			return cur;			
         }
 
         public int ClimbStairs_Attempt1(int n)

@@ -10,6 +10,6 @@ namespace ConsoleApp1
     {
       public int val;
       public ListNode next;
-      public ListNode(int x) { val = x; }
+      public ListNode(int x = 0) { val = x; }
   }
 }

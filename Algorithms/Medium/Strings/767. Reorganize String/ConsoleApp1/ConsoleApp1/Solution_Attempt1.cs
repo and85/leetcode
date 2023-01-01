@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ConsoleApp1
 {
-    public class Solution
+    public class Solution_Attempt1
     {
         public string ReorganizeString(string s)
         {

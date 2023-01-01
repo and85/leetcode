@@ -45,7 +45,7 @@ Binary trees can also be stored in breadth-first order as an implicit data struc
 simple combination of Queue/Stack together with Dictionary: https://leetcode.com/problems/first-unique-number/submissions/
 
 15. Dijkstra algorithm doesn't work correctly when there are negative weights of edges (it could give a wrong answer in such a case): https://www.youtube.com/watch?v=XB4MIexjvY0&ab_channel=AbdulBari
-16.Bellman-Ford works for graphs with nagitive edges, works for graphs with cycles, but fails for graphs with cycles with negative edges. But it's possible to detect if there is a cycle with negative edge. 
+16.Bellman-Ford works for graphs with negative edges, works for graphs with cycles, but fails for graphs with cycles with negative edges. But it's possible to detect if there is a cycle with negative edge. 
 (at the last step, none vertixes have to be relaxed, and if there are, we have faced the cycle)
 https://www.youtube.com/watch?v=FtN3BYH2Zes&ab_channel=AbdulBari
 usually Belman Ford time complexiy is O(V*E) = O(n^2), but for complete graphs it takes O(n^3)
@@ -102,7 +102,7 @@ https://leetcode.com/problems/x-of-a-kind-in-a-deck-of-cards/solution/
 24. sometimes it's possible to iteratively traverse a tree without using a stack or queue in a similar manner as we travers a linked list:
 https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/solution/
 25. With two pointers approach we could set one pointer to the beggining and the second one to the end, then move either left or right pointer depending on different conditions
-26. In worst case some sorting algorithms can take O(n^2) time, to solve this problem we may want to randomly shuffle the array before sorting. Good was of shuffling is "Knuth" shuffle
+26. In worst case some sorting algorithms can take O(n^2) time, to solve this problem we may want to randomly shuffle the array before sorting. Good way of shuffling is "Knuth" shuffle
 27. Knuth shuffle. Cool way to shuffle a deck of card in O(N) time. https://www.coursera.org/learn/algorithms-part1/lecture/12vcF/shuffling
 28. Sometimes it makes sense to use PriorityQueue over Array.Sort
 29. The easiest way to create a key which could be used in a hashset, is to create a string with a delimiter

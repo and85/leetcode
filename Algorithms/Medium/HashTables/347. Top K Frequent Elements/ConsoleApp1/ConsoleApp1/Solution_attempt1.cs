@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    public class Solution
+    public class Solution_attempt1
     {
         public int[] TopKFrequent(int[] nums, int k)
         {

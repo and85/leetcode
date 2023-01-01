@@ -5,30 +5,33 @@ using System.Text;
 
 namespace ConsoleApp1
 {
-    public class Solution
+    public class Solution_Attempt2
     {
         private IList<IList<int>> _result = new List<IList<int>>();
         private IList<int> _current = new List<int>();
 
         public IList<IList<int>> Combine(int n, int k)
         {
-            Backtrack(n, k, 1);
+            Backtrack(1, n, k);            
 
             return _result;
         }
 
-        private void Backtrack(int n, int k, int first)
+        private void Backtrack(int first, int n, int k)
         {
             if (_current.Count == k)
             {
                 _result.Add(_current.ToList());
                 return;
             }
-
+            
             for (int i = first; i <= n; i++)
             {
+
                 _current.Add(i);
-                Backtrack(n, k, i + 1);
+
+                Backtrack(i + 1, n, k);
+
                 _current.Remove(i);
             }
         }

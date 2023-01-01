@@ -8,7 +8,66 @@ namespace ConsoleApp1
 {
     public class Solution
     {
-        public ListNode MergeTwoLists(ListNode l1, ListNode l2)
+        public ListNode MergeTwoLists(ListNode list1, ListNode list2)
+        {
+            //var sentinelHead = new ListNode();
+            //Recursive1(sentinelHead, l1, l2);
+            //return sentinelHead.next;
+
+            if (list1 == null && list2 == null) return null;
+
+            if (list1 == null)
+            {
+                return list2;
+            }
+            if (list2 == null)
+            {
+                return list1;
+            }
+
+
+            if (list1.val <= list2.val)
+            {
+
+                list1.next = MergeTwoLists(list1.next, list2);
+                return list1;
+            }
+            else
+            {
+
+                list2.next = MergeTwoLists(list1, list2.next);
+                return list2;
+            }
+        }
+
+        private void Recursive1(ListNode result, ListNode list1, ListNode list2)
+        {
+            if (list1 == null && list2 == null) result.next = null;
+
+            if (list1 == null)
+            {
+                result.next = list2;
+                return;
+            }
+            if (list2 == null)
+            {
+                result.next = list1;
+                return;
+            }
+
+            if (list1.val <= list2.val)
+            {
+                result.next = list1;
+                Recursive1(result.next, list1.next, list2);
+            }
+            else
+            {
+                result.next = list2;
+                Recursive1(result.next, list1, list2.next);
+            }
+        }
+
+        public ListNode MergeTwoLists_Attempt2(ListNode l1, ListNode l2)
         {
             if (l1 == null && l2 == null) return null;
             if (l1 == null) return l2;

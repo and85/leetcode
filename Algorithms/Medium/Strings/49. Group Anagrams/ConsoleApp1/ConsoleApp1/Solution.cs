@@ -9,47 +9,32 @@ namespace ConsoleApp1
     {
         public IList<IList<string>> GroupAnagrams(string[] strs)
         {
-            var result = new List<IList<string>>();
-            var grouped = new Dictionary<string, List<string>>();
-
-            foreach (string str in strs)
+            var dict = new Dictionary<string, IList<string>>();
+            foreach (var str in strs)
             {
                 string key = GetKey(str);
-                if (grouped.ContainsKey(key))
+                if (!dict.ContainsKey(key))
                 {
-                    grouped[key].Add(str);
+                    dict.Add(key, new List<string>());
                 }
-                else
-                {
-                    grouped.Add(key, new List<string>() { str });
-                }
+
+                dict[key].Add(str);
             }
 
-            foreach (var g in grouped)
-            {
-                result.Add(g.Value);
-            }
-            
-            return result;
+
+            return dict.Select(g => g.Value).ToList();
         }
 
         private string GetKey(string str)
         {
-            var sb = new StringBuilder();
-
             int[] counts = new int[26];
+
             foreach (var c in str)
             {
                 counts[c - 'a']++;
             }
-            
-            foreach (var i in counts)
-            {
-                sb.Append(i);
-                sb.Append('|');
-            }
 
-            return sb.ToString();
+            return string.Join('|', counts);
         }
     }
 }

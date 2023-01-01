@@ -11,7 +11,7 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             int[] nums = new int[] { 4, 4, 4, 4, 1, 1, 1, 2, 2, 3 };
-            var solution = new Solution();
+            var solution = new Solution_attempt1();
             solution.TopKFrequent(nums, 2);
 
             //int[] nums = new int[] { -1, -1 };

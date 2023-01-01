@@ -1,0 +1,69 @@
+using System;
+
+public class Solution
+{
+    public int Search(int[] nums, int target)
+    {
+        if (nums.Length == 1) return nums[0] == target ? 0 : -1;        
+        
+        int f = FindRotationPoint(nums);        
+
+        if (f == -1)
+        {
+            return FindTarget(nums, 0, nums.Length - 1, target);
+        }
+
+        if (target >= nums[0] && target <= nums[f - 1])
+        {
+            return FindTarget(nums, 0, f - 1, target);
+        }
+        else
+        {
+            return FindTarget(nums, f, nums.Length - 1, target);
+        }        
+    }
+
+    private int FindTarget(int[] nums, int l, int r, int target)
+    {
+        while (l <= r)
+        {
+            int m = l + (r - l) / 2;
+
+            if (nums[m] == target) return m;
+
+            if (nums[m] < target)
+            {
+                l = m + 1;
+            }
+            else
+            {
+                r = m - 1;
+            }
+        }
+
+        return -1;
+    }
+
+    private int FindRotationPoint(int[] nums)
+    {
+        if (nums[0] < nums[nums.Length - 1]) return -1;
+        int l = 0, r = nums.Length - 1;
+        
+        while (l < r)
+        {
+            int m = l + (r - l) / 2;
+            if (m == l) break;
+
+            if (nums[m] > nums[l])
+            {
+                l = m;
+            }
+            else
+            {
+                r = m;
+            }            
+        }
+
+        return r;
+    }
+}

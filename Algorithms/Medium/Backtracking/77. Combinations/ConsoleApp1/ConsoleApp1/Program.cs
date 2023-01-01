@@ -6,7 +6,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            var solution = new Solution();
+            var solution = new Solution_Attempt2();
             solution.Combine(4, 2);
             Console.ReadLine();
         }

@@ -36,5 +36,20 @@ namespace ConsoleApp1.Tests
             // assert
             Assert.AreEqual(1, actual);
         }
+
+        [DataTestMethod()]
+        public void MaxAreaTest3()
+        {
+            // arrange 
+            int[] input = new int[] { 10, 1, 20, 30, 300, 10 };
+            var solution = new Solution();
+
+            // act
+            int actual = solution.MaxArea(input);
+
+            // assert
+            Assert.AreEqual(50, actual);
+        }
+
     }
 }
