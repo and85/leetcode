@@ -54,7 +54,8 @@ public class Solution
                         {
                             if (grid[nr][nc] < 0)
                             {
-                                grid[nr][nc] = -Math.Min(Math.Abs(grid[cell.Item1][cell.Item2] - 1), Math.Abs(grid[nr][nc]));
+                                //grid[nr][nc] = -Math.Min(Math.Abs(grid[cell.Item1][cell.Item2] - 1), Math.Abs(grid[nr][nc]
+                                grid[nr][nc] =Math.Abs(grid[cell.Item1][cell.Item2] - 1);
                             }
                             else
                             {
