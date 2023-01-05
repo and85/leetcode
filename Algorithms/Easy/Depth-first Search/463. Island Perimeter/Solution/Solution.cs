@@ -1,69 +1,135 @@
-public class Solution {
+public class Solution
+{
 
-    private int _width;
-    public int IslandPerimeter(int[][] grid) {
-        
-        int pieces = 0;
-        var visited = new HashSet<int>();
-        _width = grid[0].Length;
-
-        for (int i = 0; i < grid.Length; i++)
-        {
-            for (int j = 0; j < grid[i].Length; j++)
-            {
-                if (grid[i][j] == 1)
-                {
-                    pieces = Dfs(grid, i, j, ref pieces, visited);
-                    break;
-                }
-            }
-        }        
-
-        return pieces;
-    }
-
-    private (int, int)[] _directions = new[]
+    private (int R, int C)[] _directions = new (int, int)[]
     {
-        (1, 0),
         (-1, 0),
-        (0, 1),
+        (1, 0),
         (0, -1),
+        (0, 1)
     };
 
-    private int Dfs(int[][] grid, int i, int j, ref int pieces, HashSet<int> visited)
-    {
-        int pos = GetPosition(i, j);
+    private int _width;
 
-        if (visited.Contains(pos)) return pieces;
-
-        visited.Add(pos);
-
-        foreach (var d in _directions)
-        {
-            int neighbourI = i + d.Item1;
-            int neighbourJ = j + d.Item2;
-            if (neighbourI >= grid.Length || neighbourI < 0 || neighbourJ >= grid[i].Length || neighbourJ < 0)
+    public int IslandPerimeter(int[][] grid)
+    {                
+        int perimeter = 0;
+        for (int r = 0; r < grid.Length; r++)
+        { 
+            for (int c = 0; c < grid[r].Length; c++)
             {
-                pieces++;
-                continue;
-            }            
-
-            if (grid[neighbourI][neighbourJ] == 0)
-            {
-                pieces++;
-            } 
-            else
-            {
-                Dfs(grid, neighbourI, neighbourJ, ref pieces, visited);
+                if (grid[r][c] == 1)
+                {
+                    return CalculatePerimiter(grid, r, c);                    
+                }
             }
         }
 
-        return pieces;
+
+        return 0;
+    }
+
+    private int CalculatePerimiter(int[][] grid, int r, int c)
+    {
+        int perimeter = 0;
+        
+
+        var queue = new Queue<(int R, int C)>();        
+        
+        queue.Enqueue((r, c));
+
+        
+
+        while (queue.Count > 0)
+        {
+            var cell = queue.Dequeue();
+
+            if (grid[cell.R][cell.C] == -1) continue;
+            grid[cell.R][cell.C] = -1;
+
+            foreach (var d in _directions)
+            {
+                int nr = cell.Item1 + d.R;
+                int nc = cell.Item2 + d.C;
+
+                if (nr >= 0 && nr < grid.Length && nc >= 0 && nc < grid[r].Length)
+                {
+                    if (grid[nr][nc] == 1)
+                    {                        
+                        queue.Enqueue((nr, nc));
+                    }
+                    else if (grid[nr][nc] == 0)
+                    {
+                        perimeter++;
+                    }
+                }
+                else
+                {
+                    perimeter++;
+                }
+            }
+            
+        }
+
+        return perimeter;
+    }
+
+    public int IslandPerimeter_Recursive(int[][] grid)
+    {
+        int perimeter = 0;        
+
+        for (int r = 0; r < grid.Length; r++)
+        { 
+            for (int c = 0; c < grid[r].Length; c++)
+            {
+                if (grid[r][c] == 1)
+                {
+                    return Dfs(grid, r, c, ref perimeter);
+                }
+            }
+        }
+
+
+        return 0;
+    }
+
+    private int Dfs(int[][] grid, int r, int c, ref int perimeter)
+    {
+        //int pos = GetPosition(r, c);
+
+        //if (visited.Contains(pos)) return perimeter;
+        //visited.Add(pos);
+
+        if (grid[r][c] == -1) return perimeter;
+        grid[r][c] = -1;
+
+        foreach (var d in _directions)
+        {
+            int nr = r + d.R;
+            int nc = c + d.C;
+
+            if (nr >= 0 && nr < grid.Length && nc >= 0 && nc < grid[r].Length)
+            {
+                if (grid[nr][nc] == 1)
+                {
+                    Dfs(grid, nr, nc, ref perimeter);
+                }
+                else if (grid[nr][nc] == 0)
+                {
+                    perimeter++;
+                }
+            }
+            else
+            {
+                perimeter++;
+            }
+        }
+
+        return perimeter;
     }
 
     private int GetPosition(int i, int j)
     {
         return _width * i + j;
     }
-
 }

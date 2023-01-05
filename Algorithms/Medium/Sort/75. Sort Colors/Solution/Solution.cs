@@ -2,6 +2,11 @@ public class Solution
 {
     public void SortColors(int[] nums)
     {
+        
+    }
+
+    public void SortColors_Attempt1(int[] nums)
+    {
         int curr = 0, p0 = 0, p2 = nums.Length - 1;
 
         while (curr <= p2)
