@@ -24,3 +24,5 @@ O(n log n) [Linearithmic time]: Fast comparison-based sorting (eg. Merge Sort)
 O(n) [Linear time]: Linear Search (Finding maximum/minimum element in a 1D array), Counting Sort
 O(log n) [Logarithmic time]: Binary Search, finding GCD (Greatest Common Divisor) using Euclidean Algorithm
 O(1) [Constant time]: Calculation (eg. Solving linear equations in one unknown)
+
+https://leetcode.com/discuss/interview-question/3055778/how-to-calculate-runtime-of-backtracking-algorithm-in-interview
