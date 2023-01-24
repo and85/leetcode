@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,24 +9,35 @@ namespace ConsoleApp1
     {
         public string RemoveOuterParentheses(string s)
         {
-            if (string.IsNullOrWhiteSpace(s))
-                return s;
-
             var sb = new StringBuilder();
-            var buffer = new Stack<char>();
 
-            foreach (char ch in s)
+            // "(()()) (()) (()(()))"
+            int opened = 0;
+            bool groupStarted = false;
+            for (int i = 0; i < s.Length; i++)
             {
-                if (!(buffer.Count == 0 || buffer.Count == 1 && ch == ')'))
-                    sb.Append(ch);
+                if (s[i] == '(')
+                {
+                    if (opened != 0)
+                    {
+                        sb.Append('(');
+                    }
 
-                if (ch == '(')
-                    buffer.Push('(');
+                    opened++;
+                }
                 else
-                    buffer.Pop();
+                {
+                    if (opened != 1)
+                    {
+                        sb.Append(')');
+                    }
+
+                    opened--;
+                }
             }
 
             return sb.ToString();
+
         }
     }
 }
