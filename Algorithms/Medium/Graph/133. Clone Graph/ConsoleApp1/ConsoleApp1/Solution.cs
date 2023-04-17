@@ -1,33 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace ConsoleApp1
 {
     public class Solution
     {
-        Dictionary<Node, Node> _visitedNodes = new Dictionary<Node, Node>();
+        private Dictionary<Node, Node> _map = new Dictionary<Node, Node>();
 
         public Node CloneGraph(Node node)
         {
-            if (node == null)
+            var queue = new Queue<Node>();
+            queue.Enqueue(node);                        
+
+            while (queue.Count > 0)
             {
-                return node;
+                var cur = queue.Dequeue();
+                
+                if (_map.ContainsKey(cur))
+                {
+                    continue;
+                }
+
+                Node  cl = new Node(cur.val);
+                _map.Add(cur, cl);                
+
+                foreach (var child in cur.neighbors)
+                {                    
+                    var clonedChild = new Node(child.val);                    
+                    cl.neighbors.Add(clonedChild);
+                    
+                    _map.Add(child, clonedChild);
+
+                    queue.Enqueue(child);
+                }
+
             }
 
-            if (_visitedNodes.ContainsKey(node))
-                return _visitedNodes[node];
 
-            Node clonedNode = new Node(node.val, new List<Node>());
-            _visitedNodes.Add(node, clonedNode);
-
-            foreach (var neighbor in node.neighbors)
-            {
-                clonedNode.neighbors.Add(CloneGraph(neighbor));
-            }
-
-            return clonedNode;
+            return _map[node];
         }
     }
 }

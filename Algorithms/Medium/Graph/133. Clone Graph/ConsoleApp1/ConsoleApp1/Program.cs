@@ -23,7 +23,7 @@ namespace ConsoleApp1
             node4.neighbors.Add(node1);
             node4.neighbors.Add(node3);
 
-            var solution = new Solution();
+            var solution = new Solution_attempt1();
             var clone = solution.CloneGraph(node1);
 
             Console.ReadLine();
